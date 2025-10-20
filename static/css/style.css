@@ -5,13 +5,13 @@
     --danger-color: #dc3545;
     --warning-color: #ffc107;
     --info-color: #17a2b8;
-    --light-color: #f8f9fa;
+    --light-color: #faf8f8;
     --dark-color: #343a40;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #4ba24e 100%);
     min-height: 100vh;
 }
 
