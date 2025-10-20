@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center py-5">
+                <h1 class="display-4 fw-bold mb-3">
+                    <i class="fas fa-brain me-3"></i>LecheML Colombia
+                </h1>
+                <p class="lead mb-4">Del campo al algoritmo: Explorando el comportamiento de la producción de leche en Colombia</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <p class="mb-4">
+                            <strong>Universidad De Cundinamarca</strong><br>
+                            Ingeniería De Sistemas Y Computación<br>
+                            Machine Learning<br>
+                            <small>Gestor Del Conocimiento: Edison Gustavo Canon Varela</small>
+                        </p>
+                        <p class="mb-0">
+                            <strong>Chía, Cundinamarca</strong><br>
+                            <small>Octubre 10, 2025</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Project Overview -->
+<div class="row mb-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i>Información del Proyecto</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-link me-2"></i>Repositorio</h5>
+                        <a href="https://github.com/Mireya-Garzon-A/Proyecto-Final-ML" target="_blank" class="btn btn-outline-primary btn-sm">
+                            <i class="fab fa-github me-2"></i>Ver en GitHub
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-users me-2"></i>Autores</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li><strong>Ruben Darío Caicedo Lesmes</strong></li>
+                            <li><strong>Mireya Garzon Abril</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Objectives -->
+<div class="row mb-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h3 class="mb-0"><i class="fas fa-bullseye me-2"></i>Objetivos del Proyecto</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5 class="text-primary"><i class="fas fa-target me-2"></i>Objetivo Principal</h5>
+                    <p class="lead">Desarrollar un modelo de machine learning que permita predecir el precio por litro y el volumen de leche captado según el mes y la región, para apoyar decisiones en políticas agropecuarias, logística industrial y educación comunitaria.</p>
+                </div>
+                
+                <div>
+                    <h5 class="text-primary"><i class="fas fa-tasks me-2"></i>Objetivos Secundarios</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-chart-line text-success me-2"></i>
+                            <strong>Identificar patrones</strong> en los meses y regiones en la producción y precios de leche cruda
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-chart-area text-success me-2"></i>
+                            <strong>Predecir fluctuaciones</strong> que afecten a productores, distribuidores y consumidores en el día a día
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-graduation-cap text-success me-2"></i>
+                            <strong>Generar visualizaciones y recursos educativos</strong> que faciliten la comprensión de los datos por parte de comunidades rurales, estudiantes y tomadores de decisiones
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Questions -->
+<div class="row mb-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h3 class="mb-0"><i class="fas fa-question-circle me-2"></i>Preguntas Clave del Proyecto</h3>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="questionsAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#question1">
+                                <i class="fas fa-dollar-sign me-2"></i>
+                                ¿Cómo varía el precio de la leche según el mes y el departamento?
+                            </button>
+                        </h2>
+                        <div id="question1" class="accordion-collapse collapse show" data-bs-parent="#questionsAccordion">
+                            <div class="accordion-body">
+                                <p>El precio es un interrogante muy importante para los productores como para los clientes, ya que afecta a ambos lados. Nuestro modelo puede ayudar a tener un mejor panorama de la fluctuación del precio en los diferentes lugares.</p>
+                                <span class="badge bg-primary">Predicción numérica (regresión)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question2">
+                                <i class="fas fa-map-marked-alt me-2"></i>
+                                ¿Qué regiones tienen mayor volumen de producción en ciertos periodos?
+                            </button>
+                        </h2>
+                        <div id="question2" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                            <div class="accordion-body">
+                                <p>Por medio de nuestro modelo, se muestra las regiones con mayor producción de leche cruda en diferentes meses del año, según los datos históricos.</p>
+                                <span class="badge bg-success">Predicción y ranking</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question3">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                ¿Existen patrones estacionales o anomalías en los datos?
+                            </button>
+                        </h2>
+                        <div id="question3" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                            <div class="accordion-body">
+                                <p>Con los datos históricos, podemos obtener los patrones tanto en producción y precios en diferentes meses del año.</p>
+                                <span class="badge bg-info">Análisis exploratorio y visual</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#question4">
+                                <i class="fas fa-chart-pie me-2"></i>
+                                ¿Qué variables explican mejor las variaciones de precio y volumen?
+                            </button>
+                        </h2>
+                        <div id="question4" class="accordion-collapse collapse" data-bs-parent="#questionsAccordion">
+                            <div class="accordion-body">
+                                <p>Se puede tener mayor claridad de las variables que afectan la producción de leche cruda.</p>
+                                <span class="badge bg-warning">Importancia de variables (interpretabilidad)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Data Evaluation -->
+<div class="row mb-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h3 class="mb-0"><i class="fas fa-database me-2"></i>Evaluación de Datos</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-globe me-2"></i>Fuente de Datos</h5>
+                        <p><strong>Ministerio de la Agricultura y Desarrollo Rural</strong></p>
+                        <p>Unidad de Seguimiento de Precios de Leche Cruda Bovina</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-table me-2"></i>Tablas</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-file-alt text-primary me-2"></i>Volumen de Acopios Directos</li>
+                            <li><i class="fas fa-file-alt text-primary me-2"></i>Precio Pagado al Productor</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <h5><i class="fas fa-clipboard-check me-2"></i>Datos para Evaluar</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-history text-success me-2"></i><strong>Historial:</strong> ¿Hay suficientes años y meses para detectar patrones?</li>
+                            <li><i class="fas fa-map text-success me-2"></i><strong>Datos por zonas:</strong> ¿Los datos cubren todos los departamentos/estados relevantes?</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-file-code text-success me-2"></i><strong>Formato:</strong> ¿Están en formato estructurado (CSV, Excel)? ¿Hay valores faltantes?</li>
+                            <li><i class="fas fa-balance-scale text-success me-2"></i><strong>Consistencia:</strong> ¿Las unidades están claras (litros, pesos)? ¿Hay errores tipográficos?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feasibility -->
+<div class="row mb-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card border-success">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0"><i class="fas fa-check-circle me-2"></i>Viabilidad del Proyecto</h3>
+            </div>
+            <div class="card-body">
+                <p class="lead">La viabilidad del proyecto se considera <strong class="text-success">buena</strong> dado que se basa en datos del ministerio de agricultura de Colombia.</p>
+                <p>El uso de dichos datos al ser un sitio oficial proporciona una base de datos sólida para desarrollar el modelo. Pero el éxito de este modelo es el uso correcto de la información recolectada, la separación de regiones para poder analizar los datos de manera más efectiva.</p>
+                
+                <div class="alert alert-success mt-3">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>Factor Clave de Éxito:</strong> El correcto procesamiento y análisis de la información oficial del Ministerio de Agricultura, permitirá desarrollar predicciones precisas y útiles para el sector lechero colombiano.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="row mb-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card bg-gradient-primary text-white">
+            <div class="card-body text-center py-4">
+                <h4 class="mb-3"><i class="fas fa-rocket me-2"></i>¿Listo para explorar los datos?</h4>
+                <p class="mb-4">Inicia sesión para acceder al dashboard completo con análisis en tiempo real, gráficos interactivos y predicciones de producción lechera.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{{ url_for('login') }}" class="btn btn-light btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                    </a>
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Registrarse
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Animación de acordeón
+document.querySelectorAll('.accordion-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        if (this.classList.contains('collapsed')) {
+            icon.className = icon.className.replace('fa-chevron-down', 'fa-chevron-up');
+        } else {
+            icon.className = icon.className.replace('fa-chevron-up', 'fa-chevron-down');
+        }
+    });
+});
+</script>
+{% endblock %}
