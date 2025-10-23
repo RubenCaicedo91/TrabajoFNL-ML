@@ -4,94 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐄 Del campo al algoritmo 🐄</title>
-    
+
+    <!-- Meta -->
+    <meta name="description" content="Del campo al algoritmo - análisis y predicción de la producción de leche en Colombia usando ML">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <style>
-        .card {
-            border: none;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            transition: all 0.3s ease;
-        }
-        .card:hover {
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        }
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .stat-card .card-body {
-            padding: 1.5rem;
-        }
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        .stat-change {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        .navbar-brand {
-            font-weight: bold;
-        }
-        .chart-container {
-            position: relative;
-            height: 300px;
-        }
-        .user-info {
-            background-color: #f8f9fa;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-        .table-responsive {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .badge-active {
-            background-color: #28a745;
-        }
-        .footer-nav {
-            background-color: #f8f9fa;
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-    </style>
+
+    <!-- Google Fonts (Inter for a professional, crisp UI) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Project styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
+    <meta name="theme-color" content="#0d6efd">
 </head>
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">
-                </i>🐄 Del campo al algoritmo 🐄
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/favicon.svg') }}" alt="logo" width="36" height="36" class="me-2">
+                <span class="fw-semibold text-dark">Del campo al algoritmo</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-user me-1"></i>{{ current_user.name }}
+                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-1"></i>{{ current_user.name }}
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">Dashboard</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('login') }}">Iniciar Sesión</a>
+                        <li class="nav-item me-2">
+                            <a class="nav-link text-dark" href="{{ url_for('login') }}">Iniciar Sesión</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('register') }}">Registrarse</a>
+                            <a class="btn btn-primary btn-sm text-white" href="{{ url_for('register') }}">Registrarse</a>
                         </li>
                     {% endif %}
                 </ul>

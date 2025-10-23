@@ -1,58 +1,65 @@
 :root {
-    --primary-color: #007bff;
+    --primary-color: #0d6efd; /* Bootstrap primary blue */
+    --primary-600: #0b5ed7;
     --secondary-color: #6c757d;
-    --success-color: #28a745;
+    --success-color: #198754;
     --danger-color: #dc3545;
     --warning-color: #ffc107;
-    --info-color: #17a2b8;
-    --light-color: #faf8f8;
-    --dark-color: #343a40;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --card-radius: 12px;
+    --soft-shadow: 0 6px 18px rgba(22, 27, 35, 0.06);
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #4ba24e 100%);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: var(--light-color);
+    color: #222;
     min-height: 100vh;
 }
 
 /* Navbar personalizado */
-.navbar-brand {
-    font-weight: bold;
-    font-size: 1.5rem;
+.navbar-brand img {
+    border-radius: 6px;
+}
+
+.navbar-brand span {
+    font-size: 1.05rem;
 }
 
 .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
 /* Cards */
 .card {
     border: none;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: var(--card-radius);
+    box-shadow: var(--soft-shadow);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 .card-header {
-    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-600));
     color: white;
-    border-radius: 15px 15px 0 0 !important;
-    font-weight: bold;
+    border-radius: var(--card-radius) var(--card-radius) 0 0 !important;
+    font-weight: 700;
 }
 
 /* Stats Cards */
 .stats-card {
     background: white;
-    border-radius: 15px;
-    padding: 1.5rem;
+    border-radius: var(--card-radius);
+    padding: 1.25rem;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    box-shadow: var(--soft-shadow);
+    transition: all 0.22s ease;
 }
 
 .stats-card:hover {
@@ -88,33 +95,35 @@ body {
 
 /* Botones */
 .btn {
-    border-radius: 25px;
-    padding: 0.5rem 1.5rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    border-radius: 10rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-600));
     border: none;
+    box-shadow: 0 6px 18px rgba(13,110,253,0.12);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #0056b3, #004085);
     transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(13,110,253,0.12);
 }
 
 /* Formularios */
 .form-control {
-    border-radius: 10px;
-    border: 2px solid #e9ecef;
-    padding: 0.75rem;
-    transition: all 0.3s ease;
+    border-radius: 8px;
+    border: 1px solid #e6e9ee;
+    padding: 0.6rem 0.75rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .form-control:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    box-shadow: 0 6px 16px rgba(13,110,253,0.06);
+    outline: none;
 }
 
 /* Alertas */
@@ -126,11 +135,11 @@ body {
 
 /* Dashboard */
 .dashboard-header {
-    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-600));
     color: white;
-    padding: 2rem 0;
-    margin-bottom: 2rem;
-    border-radius: 15px;
+    padding: 1.75rem 0;
+    margin-bottom: 1.5rem;
+    border-radius: var(--card-radius);
 }
 
 .user-info-card {
@@ -144,10 +153,10 @@ body {
 /* Charts */
 .chart-container {
     background: white;
-    border-radius: 15px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    border-radius: var(--card-radius);
+    padding: 1.25rem;
+    box-shadow: var(--soft-shadow);
+    margin-bottom: 1.5rem;
 }
 
 /* Footer */
