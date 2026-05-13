@@ -1,0 +1,463 @@
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 398, in inversion
+    return render_template('inversion.html',
+                           departamentos=departamentos,
+    ...<26 lines>...
+                           meses_recomendados_max=meses_recomendados_max if 'meses_recomendados_max' in locals() else 0,
+                           meses_depto_max=meses_depto_max if 'meses_depto_max' in locals() else 0)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\templates\inversion.html", line 110, in template
+    {% endif %}
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endif'. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 162, in inversion
+    df_raza = cargar_datos_raza()
+              ^^^^^^^^^^^^^^^^^
+NameError: name 'cargar_datos_raza' is not defined
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 162, in inversion
+    # no coincide
+NameError: name 'cargar_datos_raza' is not defined
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 162, in inversion
+    # no coincide
+NameError: name 'cargar_datos_raza' is not defined
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 162, in inversion
+    # no coincide
+NameError: name 'cargar_datos_raza' is not defined
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 162, in inversion
+    # no coincide
+NameError: name 'cargar_datos_raza' is not defined
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1944, in _agg_py_fallback
+    res_values = self._grouper.agg_series(ser, alt, preserve_dtype=True)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 873, in agg_series
+    result = self._aggregate_series_pure_python(obj, func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 894, in _aggregate_series_pure_python
+    res = func(group)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2461, in <lambda>
+    alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6570, in mean
+    return NDFrame.mean(self, axis, skipna, numeric_only, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12485, in mean
+    return self._stat_function(
+           ~~~~~~~~~~~~~~~~~~~^
+        "mean", nanops.nanmean, axis, skipna, numeric_only, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12442, in _stat_function
+    return self._reduce(
+           ~~~~~~~~~~~~^
+        func, name=name, axis=axis, skipna=skipna, numeric_only=numeric_only
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6478, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 404, in new_func
+    result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 720, in nanmean
+    the_sum = _ensure_numeric(the_sum)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 1701, in _ensure_numeric
+    raise TypeError(f"Could not convert string '{x}' to numeric")
+TypeError: Could not convert string '216.118.570223.068.475241.583.171257.144.584272.724.439242.549.119270.181.338258.036.424239.475.134249.837.329249.139.855243.387.024235.773.820255.612.242273.955.350' to numeric
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 403, in inversion
+    meses_recomendados = mejores_meses_acopio(n_top=3, departamento=None)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 132, in mejores_meses_acopio
+    grouped = df2.groupby('mes', sort=False)[col_name].mean()
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2459, in mean
+    result = self._cython_agg_general(
+        "mean",
+        alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+        numeric_only=numeric_only,
+    )
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2005, in _cython_agg_general
+    new_mgr = data.grouped_reduce(array_func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\internals\base.py", line 367, in grouped_reduce
+    res = func(arr)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2002, in array_func
+    result = self._agg_py_fallback(how, values, ndim=data.ndim, alt=alt)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1948, in _agg_py_fallback
+    raise type(err)(msg) from err
+TypeError: agg function failed [how->mean,dtype->object]
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1944, in _agg_py_fallback
+    res_values = self._grouper.agg_series(ser, alt, preserve_dtype=True)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 873, in agg_series
+    result = self._aggregate_series_pure_python(obj, func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 894, in _aggregate_series_pure_python
+    res = func(group)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2461, in <lambda>
+    alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6570, in mean
+    return NDFrame.mean(self, axis, skipna, numeric_only, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12485, in mean
+    return self._stat_function(
+           ~~~~~~~~~~~~~~~~~~~^
+        "mean", nanops.nanmean, axis, skipna, numeric_only, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12442, in _stat_function
+    return self._reduce(
+           ~~~~~~~~~~~~^
+        func, name=name, axis=axis, skipna=skipna, numeric_only=numeric_only
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6478, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 404, in new_func
+    result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 720, in nanmean
+    the_sum = _ensure_numeric(the_sum)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 1701, in _ensure_numeric
+    raise TypeError(f"Could not convert string '{x}' to numeric")
+TypeError: Could not convert string '216.118.570223.068.475241.583.171257.144.584272.724.439242.549.119270.181.338258.036.424239.475.134249.837.329249.139.855243.387.024235.773.820255.612.242273.955.350' to numeric
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 403, in inversion
+    meses_recomendados = mejores_meses_acopio(n_top=3, departamento=None)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 132, in mejores_meses_acopio
+    grouped = df2.groupby('mes', sort=False)[col_name].mean()
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2459, in mean
+    result = self._cython_agg_general(
+        "mean",
+        alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+        numeric_only=numeric_only,
+    )
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2005, in _cython_agg_general
+    new_mgr = data.grouped_reduce(array_func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\internals\base.py", line 367, in grouped_reduce
+    res = func(arr)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2002, in array_func
+    result = self._agg_py_fallback(how, values, ndim=data.ndim, alt=alt)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1948, in _agg_py_fallback
+    raise type(err)(msg) from err
+TypeError: agg function failed [how->mean,dtype->object]
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1944, in _agg_py_fallback
+    res_values = self._grouper.agg_series(ser, alt, preserve_dtype=True)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 873, in agg_series
+    result = self._aggregate_series_pure_python(obj, func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 894, in _aggregate_series_pure_python
+    res = func(group)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2461, in <lambda>
+    alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6570, in mean
+    return NDFrame.mean(self, axis, skipna, numeric_only, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12485, in mean
+    return self._stat_function(
+           ~~~~~~~~~~~~~~~~~~~^
+        "mean", nanops.nanmean, axis, skipna, numeric_only, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12442, in _stat_function
+    return self._reduce(
+           ~~~~~~~~~~~~^
+        func, name=name, axis=axis, skipna=skipna, numeric_only=numeric_only
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6478, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 404, in new_func
+    result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 720, in nanmean
+    the_sum = _ensure_numeric(the_sum)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 1701, in _ensure_numeric
+    raise TypeError(f"Could not convert string '{x}' to numeric")
+TypeError: Could not convert string '216.118.570223.068.475241.583.171257.144.584272.724.439242.549.119270.181.338258.036.424239.475.134249.837.329249.139.855243.387.024235.773.820255.612.242273.955.350' to numeric
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 403, in inversion
+    breed_avg = float(breed_stats.get('avg', 0.0))
+                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^~
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 132, in mejores_meses_acopio
+    # localizar columna correspondiente (el DataFrame usa nombres en minúsculas)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2459, in mean
+    result = self._cython_agg_general(
+        "mean",
+        alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+        numeric_only=numeric_only,
+    )
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2005, in _cython_agg_general
+    new_mgr = data.grouped_reduce(array_func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\internals\base.py", line 367, in grouped_reduce
+    res = func(arr)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2002, in array_func
+    result = self._agg_py_fallback(how, values, ndim=data.ndim, alt=alt)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1948, in _agg_py_fallback
+    raise type(err)(msg) from err
+TypeError: agg function failed [how->mean,dtype->object]
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1944, in _agg_py_fallback
+    res_values = self._grouper.agg_series(ser, alt, preserve_dtype=True)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 873, in agg_series
+    result = self._aggregate_series_pure_python(obj, func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\ops.py", line 894, in _aggregate_series_pure_python
+    res = func(group)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2461, in <lambda>
+    alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6570, in mean
+    return NDFrame.mean(self, axis, skipna, numeric_only, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12485, in mean
+    return self._stat_function(
+           ~~~~~~~~~~~~~~~~~~~^
+        "mean", nanops.nanmean, axis, skipna, numeric_only, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\generic.py", line 12442, in _stat_function
+    return self._reduce(
+           ~~~~~~~~~~~~^
+        func, name=name, axis=axis, skipna=skipna, numeric_only=numeric_only
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\series.py", line 6478, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 404, in new_func
+    result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 720, in nanmean
+    the_sum = _ensure_numeric(the_sum)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\nanops.py", line 1701, in _ensure_numeric
+    raise TypeError(f"Could not convert string '{x}' to numeric")
+TypeError: Could not convert string '216.118.570223.068.475241.583.171257.144.584272.724.439242.549.119270.181.338258.036.424239.475.134249.837.329249.139.855243.387.024235.773.820255.612.242273.955.350' to numeric
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 418, in inversion
+    meses_recomendados = mejores_meses_acopio(n_top=3, departamento=None)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 147, in mejores_meses_acopio
+    grouped = df2.groupby('mes', sort=False)[col_name].mean()
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2459, in mean
+    result = self._cython_agg_general(
+        "mean",
+        alt=lambda x: Series(x, copy=False).mean(numeric_only=numeric_only),
+        numeric_only=numeric_only,
+    )
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2005, in _cython_agg_general
+    new_mgr = data.grouped_reduce(array_func)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\internals\base.py", line 367, in grouped_reduce
+    res = func(arr)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 2002, in array_func
+    result = self._agg_py_fallback(how, values, ndim=data.ndim, alt=alt)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1948, in _agg_py_fallback
+    raise type(err)(msg) from err
+TypeError: agg function failed [how->mean,dtype->object]
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 588, in inversion
+    return render_template('inversion.html',
+                           departamentos=departamentos,
+    ...<51 lines>...
+                           breed_table_html=breed_table_html,
+                           precios_departamentos=precios_departamentos if 'precios_departamentos' in locals() else [])
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\templates\inversion.html", line 294, in template
+    {% break %}
+    
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'break'. Jinja was looking for the following tags: 'elif' or 'else' or 'endif'. The innermost block that needs to be closed is 'if'.
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 588, in inversion
+    return render_template('inversion.html',
+                           departamentos=departamentos,
+    ...<51 lines>...
+                           breed_table_html=breed_table_html,
+                           precios_departamentos=precios_departamentos if 'precios_departamentos' in locals() else [])
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\templates\inversion.html", line 294, in template
+    {% break %}
+    
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'break'. Jinja was looking for the following tags: 'elif' or 'else' or 'endif'. The innermost block that needs to be closed is 'if'.
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 588, in inversion
+    return render_template('inversion.html',
+                           departamentos=departamentos,
+    ...<51 lines>...
+                           breed_table_html=breed_table_html,
+                           precios_departamentos=precios_departamentos if 'precios_departamentos' in locals() else [])
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\templates\inversion.html", line 294, in template
+    {% break %}
+    
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'break'. Jinja was looking for the following tags: 'elif' or 'else' or 'endif'. The innermost block that needs to be closed is 'if'.
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 588, in inversion
+    return render_template('inversion.html',
+                           departamentos=departamentos,
+    ...<51 lines>...
+                           breed_table_html=breed_table_html,
+                           precios_departamentos=precios_departamentos if 'precios_departamentos' in locals() else [])
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\templates\inversion.html", line 294, in template
+    {% break %}
+    
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'break'. Jinja was looking for the following tags: 'elif' or 'else' or 'endif'. The innermost block that needs to be closed is 'if'.
+
+--- ERROR en /inversion ---
+Traceback (most recent call last):
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\inversion.py", line 588, in inversion
+    return render_template('inversion.html',
+                           departamentos=departamentos,
+    ...<51 lines>...
+                           breed_table_html=breed_table_html,
+                           precios_departamentos=precios_departamentos if 'precios_departamentos' in locals() else [])
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "d:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\Users\Rubencho\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\templates\inversion.html", line 294, in template
+    {% break %}
+    
+jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'break'. Jinja was looking for the following tags: 'elif' or 'else' or 'endif'. The innermost block that needs to be closed is 'if'.

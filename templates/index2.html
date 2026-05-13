@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block title %}Entendimiento e Ingeniería de Datos{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="text-center mb-4">
+    <h1 class="display-5 fw-bold text-success">🛠️ Ingeniería de Datos</h1>
+</div>
+
+    <!-- Comprensión de los Datos -->
+    <div class="card border-0 shadow-lg rounded-4 mb-5">
+        <div class="card-body p-4 bg-light">
+            <h4 class="text-success mb-3"><i class="bi bi-bar-chart"></i> Comprensión de los Datos</h4>
+            <p class="fs-6">
+                Los datos oficiales incluyen variables de acopio por departamento y región, junto con el precio promedio pagado al productor.
+                Adicionalmente, el proyecto incorpora información sobre razas bovinas y su promedio diario de leche, con el fin de estimar el total de litros por mes y raza, 
+                vinculando cada raza con los departamentos en los que se encuentra presente.
+            </p>
+            <h5 class="fw-bold mt-3 mb-2">Principales características de los datos:</h5>
+            <ul class="fs-6">
+                <li><strong>Raza:</strong> Tipo de ganado (Holstein, Normando, Jersey, etc.)</li>
+                <li><strong>Promedio diario (L/vaca):</strong> Producción diaria estimada por raza</li>
+                <li><strong>Litros mensuales:</strong> Total mensual estimado por raza (promedio × días del mes)</li>
+                <li><strong>Departamento:</strong> División administrativa según el Ministerio</li>
+                <li><strong>Región:</strong> Clasificación oficial de agrupación de departamentos</li>
+                <li><strong>Precio pagado:</strong> Valor promedio por litro en pesos colombianos</li>
+                <li><strong>Mes / Año:</strong> Periodo temporal de registro</li>
+            </ul>
+            <p class="fs-6 mt-2">
+                Los datos están organizados de manera que cada raza aparece con su promedio de leche diaria, el total mensual y el departamento al que pertenece.
+                La región solo se conserva como campo descriptivo, pero no se modela como una tabla independiente.
+            </p>
+        </div>
+    </div>
+
+    <!-- Ingeniería de Datos: Selección de Datos -->
+    <div class="card border-0 shadow-lg rounded-4 mb-5">
+        <div class="card-body p-4 bg-light">
+            <h4 class="text-success mb-3"><i class="bi bi-folder2-open"></i> Selección de Datos</h4>
+            <p class="fs-6">
+                Los archivos se encuentran integrados dentro del proyecto en la carpeta <code>datasheet</code>.
+                Esta carpeta contiene los conjuntos de datos base del Ministerio y la información adicional creada por el equipo, listos para su procesamiento y análisis.
+            </p>
+            <h5 class="fw-bold mt-3 mb-2">Archivos utilizados:</h5>
+            <ul class="fs-6">
+                <li>Volumen de Acopio Total - Res 0017 de 2012.ods</li>
+                <li>Volumen de Acopio Directos - Res 0017 de 2012.ods</li>
+                <li>PRECIO_PAGADO_AL_PRODUCTOR_2_-_RES_0017_DE_2012.ods</li>
+                <li>razas.csv – incluye columnas de raza, promedio diario, litros mensuales, departamento y región.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Procesamiento de Datos -->
+    <div class="card border-0 shadow-lg rounded-4 mb-5">
+        <div class="card-body p-4 bg-light">
+            <h4 class="text-success mb-3"><i class="bi bi-gear-wide-connected"></i> Procesamiento de Datos</h4>
+            <p class="fs-6">
+                El procesamiento se realizó directamente desde los archivos en la carpeta <code>datasheet</code> mediante scripts de Python con librerías como <code>pandas</code> y <code>odfpy</code>.
+            </p>
+            <h5 class="fw-bold mt-3 mb-2">Etapas del proceso:</h5>
+            <ul class="fs-6">
+                <li><strong>Lectura y carga:</strong> Se cargaron los archivos ODS y CSV.</li>
+                <li><strong>Unificación de estructuras:</strong> Se integraron los conjuntos de datos de acopio y precio con la información de razas, enlazando por departamento, mes y año.</li>
+                <li><strong>Limpieza y validación:</strong>
+                    <ul>
+                        <li>Eliminación de filas vacías o duplicadas.</li>
+                        <li>Corrección de nombres de departamentos y razas.</li>
+                        <li>Normalización de formatos numéricos (litros, COP).</li>
+                        <li>Conversión de fechas a formato estándar.</li>
+                    </ul>
+                </li>
+                <li><strong>Transformación:</strong>
+                    <ul>
+                        <li>Cálculo del total de acopio de leche mensual por mes y departamento.</li>
+                        <li>Asociación de razas a sus departamentos y regiones.</li>
+                        <li>Generación de variables derivadas, como eficiencia por raza (litros promedio / mes).</li>
+                        <li>Promedio del precio litro de leche por región y mes.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Resultados de la fase -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body p-4 bg-light">
+            <h4 class="text-success mb-3"><i class="bi bi-check2-circle"></i> Resultados de la fase</h4>
+            <ul class="fs-6">
+                <li>Los datos están limpios, estructurados y consolidados dentro del proyecto.</li>
+                <li>Las tablas de producción y precio están relacionadas por departamento, mes y año.</li>
+                <li>La información de razas permite realizar análisis más profundos sobre productividad.</li>
+                <li>Los datos están listos para la siguiente fase de análisis exploratorio y el posterior desarrollo del modelo predictivo de machine learning.</li>
+            </ul>
+        </div>
+    </div>
+
+   <!-- ======= Referencias ======= -->
+<div class="container text-center my-5">
+  <h4 class="text-success mb-4">
+    <i class="bi bi-bookmark-star"></i> Referencias 
+  </h4>
+
+  <div class="row justify-content-center g-4">
+    
+   <!-- Federación Colombiana de Ganaderos (FEDEGÁN) -->
+<div class="col-md-3">
+  <a href="https://www.fedegan.org.co/" target="_blank" class="text-decoration-none">
+    <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+      <div class="card-body">
+        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998610.png" 
+             alt="Ícono de vaca" width="65" height="65" class="mb-3">
+        <h6 class="mt-3 fw-bold text-dark">Federación Colombiana de Ganaderos (FEDEGÁN)</h6>
+        <p class="small text-muted mb-0">fedegan.org.co</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+    <!-- ICA -->
+    <div class="col-md-3">
+      <a href="https://www.ica.gov.co/" target="_blank" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+          <div class="card-body">
+            <i class="bi bi-shield-check display-5 text-primary"></i>
+            <h6 class="mt-3 fw-bold text-dark">Instituto Colombiano Agropecuario - ICA</h6>
+            <p class="small text-muted mb-0">ica.gov.co</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- MINAGRICULTURA -->
+    <div class="col-md-3">
+      <a href="https://www.minagricultura.gov.co/paginas/default.aspx" target="_blank" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+          <div class="card-body">
+            <i class="bi bi-building display-5 text-warning"></i>
+            <h6 class="mt-3 fw-bold text-dark">Ministerio de Agricultura y Desarrollo Rural</h6>
+            <p class="small text-muted mb-0">minagricultura.gov.co</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- USPLECHE -->
+    <div class="col-md-3">
+      <a href="https://uspleche.minagricultura.gov.co/" target="_blank" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+          <div class="card-body">
+            <i class="bi bi-globe2 display-5 text-info"></i>
+            <h6 class="mt-3 fw-bold text-dark">USPLECHE – Sistema Nacional de Leche Cruda</h6>
+            <p class="small text-muted mb-0">uspleche.minagricultura.gov.co</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Efecto hover personalizado -->
+<style>
+  .hover-shadow:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+  }
+</style>
+
+</div>
+{% endblock %}

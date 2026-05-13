@@ -1,325 +1,332 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
+"""Aplicación Flask principal.
+
+Este módulo inicializa la app Flask, configura la base de datos, el
+login manager y registra los blueprints de las distintas partes de la
+aplicación (acopio, precio, inversión, perfil).
+
+Contiene además rutas públicas simples como `/`, `/login`, `/register`
+y utilidades de sesión.
+"""
+
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from pathlib import Path
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
-import os
-import json
 from datetime import datetime, timedelta
-import random
-import math
+import pytz
 
-# Importaciones locales
-from config import Config
-from database import db, User, ProductionData, Prediction, Region
+from inversion import inversion_bp
+from acopio import acopio_bp
+from precio import precio_bp
+from perfil import perfil_bp
 
-app = Flask(__name__)
-app.config.from_object(Config)
+import pandas as pd
+import io, base64
+import matplotlib.pyplot as plt
+import os
 
-# Inicializar extensiones
+
+# Inicialización
+BASE_DIR = Path(__file__).resolve().parent
+app = Flask(__name__, template_folder=str(BASE_DIR / 'templates'), static_folder=str(BASE_DIR / 'static'))
+app.secret_key = 'clave_segura_para_sesion'
+# Configurar expiración de sesión por inactividad (30 minutos)
+app.permanent_session_lifetime = timedelta(minutes=30)
+
+# Configuración de base de datos: usar MySQL exclusivamente.
+# - Si existe la variable de entorno `MYSQL_DATABASE_URL` se usa tal cual.
+# - Si no existe, por conveniencia se conecta a XAMPP local por defecto
+#   con la base `del_campo_al_algoritomo` y usuario `root` sin contraseña.
+import os
+mysql_url = os.environ.get('MYSQL_DATABASE_URL')
+if mysql_url:
+    app.config['SQLALCHEMY_DATABASE_URI'] = mysql_url
+else:
+    # conexión por defecto a XAMPP en localhost
+    app.config['SQLALCHEMY_DATABASE_URI'] = (
+        'mysql+pymysql://root:@localhost:3306/del_campo_al_algoritomo?charset=utf8mb4'
+    )
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Filtro Jinja para formatear fechas en hora local de Colombia (America/Bogota)
+def format_colombia(value, fmt="%Y-%m-%d %H:%M"):
+    """Convierte un datetime (naive o timezone-aware) a la zona America/Bogota y lo formatea.
+
+    - Si el valor es None devuelve cadena vacía.
+    - Si el datetime es naive se asume que está en UTC.
+    - Usa pytz para asegurar compatibilidad con las dependencias del proyecto.
+    """
+    if not value:
+        return ''
+    try:
+        tz_target = pytz.timezone('America/Bogota')
+        # Si es naive, asumir UTC
+        if value.tzinfo is None or value.tzinfo.utcoffset(value) is None:
+            value = pytz.UTC.localize(value)
+        local = value.astimezone(tz_target)
+        return local.strftime(fmt)
+    except Exception:
+        try:
+            # fallback simple
+            return value.strftime(fmt)
+        except Exception:
+            return str(value)
+
+# Registrar filtro en Jinja
+app.jinja_env.filters['format_colombia'] = format_colombia
+
+# Inicializar base de datos usando la instancia compartida
+from database import db
 db.init_app(app)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
+# Importar modelo después de inicializar db (evita import circular)
+with app.app_context():
+    from models import User
+
+# Configurar Flask-Login
+login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    try:
-        return User.query.get(int(user_id))
-    except:
-        return None
+    return User.query.get(int(user_id))
 
-# Rutas principales
+# Página de inicio pública
 @app.route('/')
-def index():
-    # Página principal con información del proyecto (sin login requerido)
-    return render_template('index.html')
+def inicio():
+    return render_template('inicio.html')
 
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    # Dashboard con estadísticas (requiere login)
-    production_data = get_mock_production_data()
-    department_data = get_mock_department_data()
-    predictions_data = get_mock_predictions_data()
-    
-    stats = [
-        {'title': 'Contenidos Activos', 'value': '32', 'change': '+2', 'icon': 'map-pin'},
-        {'title': 'Usuarios Registrados', 'value': '1,247', 'change': '+12%', 'icon': 'users'},
-        {'title': 'Producción Mensual', 'value': '168,000 L', 'change': '+5.2%', 'icon': 'trending-up'},
-        {'title': 'Precio Promedio', 'value': '$935/L', 'change': '+2.1%', 'icon': 'trending-up'}
-    ]
-    
-    return render_template('dashboard.html', 
-                         user=current_user,
-                         production_data=production_data,
-                         department_data=department_data,
-                         predictions_data=predictions_data,
-                         stats=stats)
-
+# Login CORREGIDO - usuario = email
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Manejador de autenticación.
+
+    El formulario envía 'usuario' (email) y 'contrasena'. Si la
+    autenticación es correcta se inicia sesión y se refresca
+    `session['last_activity']`.
+    """
+    import traceback
+    error = None
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        
         try:
+            # El campo "usuario" en el formulario es el correo electrónico
+            email = request.form['usuario']
+            contrasena = request.form['contrasena']
+
+            # Buscar usuario por email (correo electrónico)
             user = User.query.filter_by(email=email).first()
             
-            if user and user.check_password(password):
+            if user and user.check_password(contrasena):
                 login_user(user)
-                flash('¡Inicio de sesión exitoso!', 'success')
-                
-                # Redirigir al dashboard después del login
-                next_page = request.args.get('next')
-                return redirect(next_page) if next_page else redirect(url_for('dashboard'))
+                session['usuario'] = user.name
+                # Marcar sesión como permanente y registrar última actividad
+                session.permanent = True
+                session['last_activity'] = datetime.utcnow().timestamp()
+                # Mostrar mensaje de bienvenida personalizado con el nombre del usuario
+                flash(f'¡Bienvenido/a, {user.name}! Has iniciado sesión correctamente.', 'success')
+                # Redirigir al inicio en lugar de al menú principal
+                return redirect(url_for('inicio'))
             else:
-                flash('Credenciales inválidas', 'error')
+                error = 'Correo electrónico o contraseña incorrectos'
         except Exception as e:
-            print(f"Error en login: {e}")
-            flash('Error al procesar el login', 'error')
+            tb = traceback.format_exc()
+            try:
+                log_dir = os.path.join(Path(__file__).resolve().parent, 'instance')
+                os.makedirs(log_dir, exist_ok=True)
+                with open(os.path.join(log_dir, 'login_error.log'), 'a', encoding='utf-8') as f:
+                    f.write('\n--- ERROR en /login ---\n')
+                    f.write(tb)
+            except Exception:
+                pass
+            # En modo debug devolver traceback para ayuda local
+            if app.debug:
+                return f"<pre>{tb}</pre>"
+            error = 'Ocurrió un error al intentar iniciar sesión. Revisa el log en instance/login_error.log.'
     
-    return render_template('login.html')
+    return render_template('login.html', error=error)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """Registrar un nuevo usuario.
+
+    POST: valida que el correo no esté registrado, crea la instancia
+    `User`, guarda la contraseña hasheada y redirige al login.
+    GET: renderiza el formulario de registro.
+    """
     if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        department = request.form.get('department')
-        role = request.form.get('role', 'USER')
-        
-        try:
-            # Verificar si el usuario ya existe
-            if User.query.filter_by(email=email).first():
-                flash('El email ya está registrado', 'error')
-                return redirect(url_for('register'))
-            
-            # Crear nuevo usuario
-            user = User(name=name, email=email, department=department, role=role)
-            user.set_password(password)
-            
-            db.session.add(user)
-            db.session.commit()
-            
-            flash('¡Cuenta creada exitosamente! Por favor inicia sesión.', 'success')
-            return redirect(url_for('login'))
-            
-        except Exception as e:
-            print(f"Error en registro: {e}")
-            db.session.rollback()
-            flash('Error al crear la cuenta', 'error')
-    
+        # Nombres y apellidos separados
+        primer_nombre = request.form.get('primer_nombre')
+        segundo_nombre = request.form.get('segundo_nombre')
+        primer_apellido = request.form.get('primer_apellido')
+        segundo_apellido = request.form.get('segundo_apellido')
+        # Construir `name` para compatibilidad con otras partes del sistema
+        name = f"{primer_nombre} {' ' + segundo_nombre if segundo_nombre else ''} {primer_apellido} {' ' + segundo_apellido if segundo_apellido else ''}".strip()
+        email = request.form['email']
+        password = request.form['password']
+        plan = request.form.get('plan', 'free')
+        payment_method = request.form.get('payment_method', 'none')
+        tipo_documento = request.form.get('tipo_documento')
+        numero_documento = request.form.get('numero_documento')
+        telefono = request.form.get('telefono')
+
+        # Verificar si ya existe el usuario por email
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            flash('El correo electrónico ya está registrado', 'danger')
+            return redirect(url_for('register'))
+
+        new_user = User(name=name, email=email)
+        # Asignar campos adicionales de identificación
+        new_user.primer_nombre = primer_nombre
+        new_user.segundo_nombre = segundo_nombre
+        new_user.primer_apellido = primer_apellido
+        new_user.segundo_apellido = segundo_apellido
+        new_user.tipo_documento = tipo_documento
+        new_user.numero_documento = numero_documento
+        new_user.telefono = telefono
+        new_user.set_password(password)
+
+        # Si seleccionó un plan de pago, simulamos el cobro y asignamos rol temporal
+        if plan in ('pago1', 'pago2'):
+            # simulación: aceptar cualquier método y dar suscripción por 30 días
+            try:
+                new_user.role = 'pago1' if plan == 'pago1' else 'pago2'
+                new_user.subscription_expires = datetime.utcnow() + timedelta(days=30)
+            except Exception:
+                # si falla asignación, dejar en free
+                new_user.role = 'free'
+                new_user.subscription_expires = None
+        else:
+            new_user.role = 'free'
+            new_user.subscription_expires = None
+
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Usuario registrado correctamente. Por favor inicie sesión.', 'success')
+        return redirect(url_for('login'))
+
     return render_template('register.html')
 
+# Logout
 @app.route('/logout')
 @login_required
 def logout():
+    """Cerrar la sesión del usuario actual.
+
+    Limpia las claves de sesión y redirige al inicio mostrando un flash
+    informativo.
+    """
     logout_user()
-    flash('¡Sesión cerrada exitosamente!', 'success')
-    return redirect(url_for('index'))
+    session.pop('usuario', None)
+    session.pop('last_activity', None)
+    flash('Has cerrado sesión correctamente.', 'info')
+    return redirect(url_for('inicio'))
 
-# API Endpoints
-@app.route('/api/production')
-def api_production():
-    try:
-        department = request.args.get('department', 'all')
-        year = request.args.get('year', '2024')
-        
-        data = get_mock_production_data()
-        return jsonify(data)
-    except Exception as e:
-        print(f"Error en API production: {e}")
-        return jsonify({'error': str(e)}), 500
 
-@app.route('/api/predictions', methods=['GET', 'POST'])
-def api_predictions():
-    try:
-        if request.method == 'POST':
-            data = request.get_json()
-            
-            # Lógica de predicción simplificada
-            prediction = generate_simple_prediction(
-                data.get('department'),
-                data.get('target_month'),
-                data.get('target_year')
-            )
-            
-            return jsonify(prediction)
-        
-        # GET request - obtener predicciones existentes
-        data = get_mock_predictions_data()
-        return jsonify(data)
-    except Exception as e:
-        print(f"Error en API predictions: {e}")
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/api/predict', methods=['POST'])
+# Endpoint opcional para extender la sesión desde cliente (invocado por JS cuando hay actividad)
+@app.route('/keepalive', methods=['POST'])
 @login_required
-def api_predict():
+def keepalive():
+    """Extiende la sesión del usuario (ping desde el cliente).
+
+    Este endpoint es invocado por JavaScript de la UI para actualizar
+    `session['last_activity']` y evitar expiraciones mientras el
+    usuario está activo. Devuelve 204 en éxito.
+    """
     try:
-        data = request.get_json()
-        
-        # Generar predicción
-        prediction = generate_simple_prediction(
-            data['department'],
-            data['target_month'],
-            data['target_year']
-        )
-        
-        # Guardar en base de datos
-        new_prediction = Prediction(
-            user_id=current_user.id,
-            department=data['department'],
-            target_month=data['target_month'],
-            target_year=data['target_year'],
-            predicted_volume=prediction['volume'],
-            predicted_price=prediction['price'],
-            confidence=prediction['confidence']
-        )
-        
-        db.session.add(new_prediction)
-        db.session.commit()
-        
-        return jsonify({
-            'success': True,
-            'prediction': prediction
-        })
-        
-    except Exception as e:
-        print(f"Error en API predict: {e}")
-        db.session.rollback()
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        }), 500
+        session['last_activity'] = datetime.utcnow().timestamp()
+        return ('', 204)
+    except Exception:
+        return jsonify({'ok': False}), 500
 
-# Funciones auxiliares
-def get_mock_production_data():
-    """Generar datos de ejemplo para producción"""
-    months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 
-              'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-    
-    data = []
-    base_volume = 125000
-    base_price = 850
-    
-    for i, month in enumerate(months):
-        # Simular crecimiento estacional
-        seasonal_factor = 1 + 0.1 * math.sin(2 * math.pi * i / 12)
-        volume = base_volume + (i * 3500) + random.randint(-5000, 5000)
-        price = base_price + (i * 7) + random.randint(-20, 20)
-        
-        data.append({
-            'month': month,
-            'volume': int(volume * seasonal_factor),
-            'price': int(price)
-        })
-    
-    return data
 
-def get_mock_department_data():
-    """Generar datos de ejemplo por departamento"""
-    return [
-        {'name': 'Antioquia', 'value': 28, 'production': 1680000},
-        {'name': 'Cundinamarca', 'value': 22, 'production': 1320000},
-        {'name': 'Valle del Cauca', 'value': 18, 'production': 1080000},
-        {'name': 'Boyacá', 'value': 15, 'production': 900000},
-        {'name': 'Nariño', 'value': 10, 'production': 600000},
-        {'name': 'Otros', 'value': 7, 'production': 420000}
-    ]
-
-def get_mock_predictions_data():
-    """Generar datos de ejemplo para predicciones"""
-    months = ['Ene 2025', 'Feb 2025', 'Mar 2025', 'Abr 2025', 'May 2025', 'Jun 2025']
-    
-    data = []
-    base_volume = 172000
-    
-    for i, month in enumerate(months):
-        # Simular tendencia con variación
-        trend = base_volume + (i * 3000)
-        variation = random.randint(-2000, 2000)
-        confidence = max(0.6, min(0.95, 0.85 - (i * 0.02)))
-        
-        data.append({
-            'month': month,
-            'predicted': int(trend + variation),
-            'confidence': round(confidence, 2)
-        })
-    
-    return data
-
-def generate_simple_prediction(department, target_month, target_year):
-    """Generar predicción usando algoritmo simplificado"""
-    
-    # Factores por departamento (simulación)
-    department_factors = {
-        'Antioquia': 1.2,
-        'Cundinamarca': 1.0,
-        'Valle del Cauca': 1.1,
-        'Boyacá': 0.9,
-        'Nariño': 0.8
-    }
-    
-    # Factor estacional
-    month_factor = 1 + 0.15 * math.sin(2 * math.pi * int(target_month) / 12)
-    
-    # Base de cálculo
-    base_volume = 150000
-    base_price = 900
-    
-    # Aplicar factores
-    dept_factor = department_factors.get(department, 1.0)
-    
-    predicted_volume = base_volume * dept_factor * month_factor
-    predicted_price = base_price * (1 + (int(target_month) - 6) * 0.02)  # Variación mensual
-    
-    # Calcular confianza basada en factores
-    volume_confidence = min(0.95, 0.7 + (dept_factor * 0.2))
-    seasonal_confidence = 0.8 + 0.1 * abs(math.cos(2 * math.pi * int(target_month) / 12))
-    
-    final_confidence = (volume_confidence + seasonal_confidence) / 2
-    
-    return {
-        'volume': int(predicted_volume + random.randint(-5000, 5000)),
-        'price': int(predicted_price + random.randint(-10, 10)),
-        'confidence': round(final_confidence, 2)
-    }
-
-# Inicializar base de datos
 @app.before_request
-def create_tables():
-    # Crear tablas solo si no existen
-    if not hasattr(app, '_tables_created'):
-        try:
-            db.create_all()
-            
-            # Crear usuario admin si no existe
-            if not User.query.filter_by(email='admin@lecheml.com').first():
-                admin = User(
-                    name='Administrador',
-                    email='admin@lecheml.com',
-                    role='ADMIN',
-                    department='Cundinamarca'
-                )
-                admin.set_password('admin123')
-                db.session.add(admin)
-                db.session.commit()
-                print("Usuario admin creado exitosamente")
-            
-            app._tables_created = True
-            print("Base de datos inicializada correctamente")
-            
-        except Exception as e:
-            print(f"Error al crear tablas: {e}")
+def session_timeout_handler():
+    # No aplicamos para endpoints estáticos o si no hay sesión
+    try:
+        if 'usuario' not in session and not current_user.is_authenticated:
+            return None
+    except Exception:
+        # en caso de fallo al leer current_user, no cortar el request
+        return None
 
+    # Obtener última actividad
+    last = session.get('last_activity')
+    now_ts = datetime.utcnow().timestamp()
+    if last:
+        elapsed = now_ts - float(last)
+        # 1800 segundos = 30 minutos
+        if elapsed > 1800:
+            try:
+                logout_user()
+            except Exception:
+                pass
+            session.clear()
+            flash('Tu sesión expiró por inactividad. Por favor inicia sesión de nuevo.', 'warning')
+            return redirect(url_for('login'))
+
+    # Actualizar last_activity para cada request válida
+    session['last_activity'] = now_ts
+    # Verificar expiración de suscripción y degradar rol si corresponde
+    try:
+        if current_user.is_authenticated:
+            expires = getattr(current_user, 'subscription_expires', None)
+            if expires is not None:
+                # Si expiró, degradar a 'free'
+                try:
+                    if expires and expires < datetime.utcnow():
+                        current_user.role = 'free'
+                        current_user.subscription_expires = None
+                        db.session.commit()
+                        flash('Tu suscripción expiró y tu cuenta fue degradada a Free.', 'info')
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+# Menú principal (solo con sesión activa)
+@app.route('/menu')
+@login_required
+def menu():
+    # Redirigimos al inicio ya que la plantilla 'menu.html' se ha eliminado
+    return redirect(url_for('inicio'))
+
+# datos proyecto
+@app.route('/index1')
+def index1():
+    return render_template('index1.html')
+
+@app.route('/index2')
+def index2():
+    return render_template('index2.html')
+
+# Crear la base de datos si no existe
+with app.app_context():
+    # Crear tablas en MySQL si no existen, excepto cuando se ejecutan scripts
+    # de mantenimiento/migración que establecen la variable SKIP_CREATE_ALL=1
+    if os.environ.get('SKIP_CREATE_ALL') != '1':
+        db.create_all()
+
+# Política de tratamiento de datos
+@app.route("/politica-datos")
+def politica_datos():
+    return render_template("politica_datos.html")
+#===================================================================================
+
+
+
+
+# =======================
+# REGISTRO DE BLUEPRINTS
+# =======================
+
+# ✅ Registro de blueprints
+app.register_blueprint(acopio_bp)
+app.register_blueprint(precio_bp)
+app.register_blueprint(inversion_bp)
+app.register_blueprint(perfil_bp)
+
+# ✅ Ejecución de la app
 if __name__ == '__main__':
-    with app.app_context():
-        try:
-            db.create_all()
-            print("Tablas creadas exitosamente")
-        except Exception as e:
-            print(f"Error al crear tablas: {e}")
-    
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, port=5000)

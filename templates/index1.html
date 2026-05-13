@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% block title %}Entendimiento del Negocio - Proyecto Leche Cruda{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+
+    <!-- Título Principal -->
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold text-success">📊 Entendimiento del Negocio</h1>
+    </div>
+
+    <!-- Contextualización del Proyecto -->
+    <div class="card border-0 shadow-lg rounded-4 mb-5">
+        <div class="card-body p-4 bg-light">
+            <h4 class="text-success mb-3"><i class="bi bi-bar-chart"></i> Contextualización del Proyecto</h4>
+            <h5 class="fw-bold mb-3">Del campo al algoritmo: Explorando el comportamiento de la producción de leche en Colombia</h5>
+            <p class="fs-6">
+                La producción de leche cruda constituye una de las principales actividades económicas del sector agropecuario colombiano. 
+                Miles de familias campesinas dependen directamente de esta labor, la cual aporta significativamente al desarrollo regional, 
+                la seguridad alimentaria y la economía nacional.
+            </p>
+            <p class="fs-6">
+                Factores como la variabilidad de precios, los cambios climáticos, las diferencias entre razas de ganado 
+                y la disparidad en los niveles de acopio por departamento generan incertidumbre en la toma de decisiones de los productores.
+            </p>
+            <p class="fs-6">
+                El proyecto <strong>“Del campo al algoritmo”</strong> surge como una propuesta innovadora que combina el conocimiento del campo 
+                con el poder del análisis de datos. Mediante el uso de técnicas de <em>Machine Learning supervisado</em>, 
+                se busca identificar patrones y tendencias en la producción y el precio de la leche en Colombia.
+            </p>
+            <p class="fs-6">
+                A través de una plataforma interactiva, las personas registradas podrán ingresar información sobre la raza de sus vacas y el departamento donde operan, 
+                obteniendo recomendaciones personalizadas sobre las épocas del año más favorables para el acopio y la venta de su leche. 
+                De esta manera, el proyecto promueve una producción más eficiente y rentable, basada en evidencia científica y tecnológica.
+            </p>
+            <p class="fs-6 mb-0"><strong>🌿 Contribución a los Objetivos de Desarrollo Sostenible (ODS)</strong></p>
+            <ul class="fs-6 mb-0">
+                <li><strong>ODS 2: Hambre Cero</strong> – Promueve una agricultura sostenible al proporcionar herramientas tecnológicas que fortalecen la seguridad alimentaria y apoyan a los pequeños productores rurales.</li>
+                <li><strong>ODS 8: Trabajo decente y crecimiento económico</strong> – Fomenta el crecimiento económico sostenible y el trabajo decente mediante el uso de datos inteligentes, 
+                        fortaleciendo la competitividad del sector lácteo.</li>
+                <li><strong>ODS 9: Industria, Innovación e Infraestructura</strong> – Fomenta la innovación en el sector agroindustrial mediante algoritmos de aprendizaje automático, contribuyendo al desarrollo de soluciones tecnológicas que transforman el campo colombiano.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Objetivo Principal -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body p-4 bg-light">
+            <h4 class="text-success mb-3"><i class="bi bi-bullseye"></i> Objetivo Principal</h4>
+            <p class="fs-6">
+                Desarrollar un modelo de <strong>machine learning</strong> que permita predecir el 
+                <strong>precio por litro</strong> y el <strong>volumen de leche captado</strong> según el mes y la región,
+                con el fin de apoyar la toma de decisiones en <em>políticas agropecuarias</em>, 
+                <em>logística industrial</em> y <em>educación comunitaria</em>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Objetivos Secundarios -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body p-4">
+            <h4 class="text-primary mb-3"><i class="bi bi-list-check"></i> Objetivos Secundarios</h4>
+            <ul class="fs-6">
+                <li>Identificar patrones en los meses y regiones en la producción y precios de leche cruda.</li>
+                <li>Predecir fluctuaciones que afecten a productores, distribuidores y consumidores en el día a día.</li>
+                <li>Generar visualizaciones y recursos educativos que faciliten la comprensión de los datos por parte de comunidades rurales, estudiantes y tomadores de decisiones.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Preguntas Clave -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body p-4">
+            <h4 class="text-primary mb-3"><i class="bi bi-question-circle"></i> Preguntas Clave del Proyecto</h4>
+            <ul class="fs-6">
+                <li><strong>¿Cómo varía el precio de la leche según el mes y el departamento?</strong><br>
+                    Nuestro modelo puede ayudar a comprender la fluctuación del precio en diferentes lugares. 
+                    <em>(Predicción numérica – regresión)</em>
+                </li>
+                <li class="mt-2"><strong>¿Qué regiones tienen mayor volumen de producción en ciertos periodos?</strong><br>
+                    El modelo identifica las regiones con mayor producción según los datos históricos. 
+                    <em>(Predicción y ranking)</em>
+                </li>
+                <li class="mt-2"><strong>¿Existen patrones estacionales o anomalías en los datos?</strong><br>
+                    Se analizan patrones en producción y precios durante el año. 
+                    <em>(Análisis exploratorio y visual)</em>
+                </li>
+                <li class="mt-2"><strong>¿Qué variables explican mejor las variaciones de precio y volumen?</strong><br>
+                    Se determinan las variables más influyentes en la producción de leche cruda. 
+                    <em>(Importancia de variables – interpretabilidad)</em>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Evaluación de Datos -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body p-4">
+            <h4 class="text-primary mb-3"><i class="bi bi-database"></i> Evaluación de Datos</h4>
+            <ul class="fs-6">
+                <li><strong>Fuente de Datos:</strong><br>
+                    Ministerio de Agricultura y Desarrollo Rural – Unidad de Seguimiento de Precios de Leche Cruda Bovina.
+                </li>
+                <li><strong>Tablas utilizadas:</strong>
+                    <ul>
+                        <li>Volumen de Acopios Directos</li>
+                        <li>Volumen de Acopios Totales</li>
+                        <li>Precio Pagado al Productor</li>
+                        <li>Razas, volumen diario, volumen mes, departamento, Región (Tabla personalizada)</li>
+                    </ul>
+                </li>
+                <li><strong>Aspectos evaluados:</strong>
+                    <ul>
+                        <li>Historial: Se cuenta con registros de varios años, suficientes para detectar patrones.</li>
+                        <li>Cobertura geográfica: Los datos incluyen los departamentos clasificados por regiones.</li>
+                        <li>Formato: Los datos provienen en formato ODS, estructurados y con columnas bien definidas.</li>
+                        <li>Consistencia: Las unidades están claras (litros, pesos colombianos), y los errores fueron depurados.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Viabilidad -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body p-4">
+            <h4 class="text-primary mb-3"><i class="bi bi-check2-circle"></i> Viabilidad</h4>
+            <p class="fs-6">
+                La viabilidad del proyecto es <strong>alta</strong>, ya que se basa en datos oficiales del 
+                <em>Ministerio de Agricultura de Colombia</em>. Al provenir de una fuente institucional confiable, 
+                los datos tienen validez técnica y cobertura nacional. 
+                El éxito del modelo depende del correcto manejo de la información y la segmentación por regiones y departamentos, 
+                para permitir un análisis más preciso y representativo de la realidad productiva del país.
+            </p>
+        </div>
+    </div>
+
+    <!-- ======= Referencias ======= -->
+<div class="container text-center my-5">
+  <h4 class="text-success mb-4">
+    <i class="bi bi-bookmark-star"></i> Referencias 
+  </h4>
+
+  <div class="row justify-content-center g-4">
+    
+   <!-- Federación Colombiana de Ganaderos (FEDEGÁN) -->
+<div class="col-md-3">
+  <a href="https://www.fedegan.org.co/" target="_blank" class="text-decoration-none">
+    <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+      <div class="card-body">
+        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998610.png" 
+             alt="Ícono de vaca" width="65" height="65" class="mb-3">
+        <h6 class="mt-3 fw-bold text-dark">Federación Colombiana de Ganaderos (FEDEGÁN)</h6>
+        <p class="small text-muted mb-0">fedegan.org.co</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+    <!-- ICA -->
+    <div class="col-md-3">
+      <a href="https://www.ica.gov.co/" target="_blank" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+          <div class="card-body">
+            <i class="bi bi-shield-check display-5 text-primary"></i>
+            <h6 class="mt-3 fw-bold text-dark">Instituto Colombiano Agropecuario - ICA</h6>
+            <p class="small text-muted mb-0">ica.gov.co</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- MINAGRICULTURA -->
+    <div class="col-md-3">
+      <a href="https://www.minagricultura.gov.co/paginas/default.aspx" target="_blank" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+          <div class="card-body">
+            <i class="bi bi-building display-5 text-warning"></i>
+            <h6 class="mt-3 fw-bold text-dark">Ministerio de Agricultura y Desarrollo Rural</h6>
+            <p class="small text-muted mb-0">minagricultura.gov.co</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- USPLECHE -->
+    <div class="col-md-3">
+      <a href="https://uspleche.minagricultura.gov.co/" target="_blank" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4 h-100 hover-shadow">
+          <div class="card-body">
+            <i class="bi bi-globe2 display-5 text-info"></i>
+            <h6 class="mt-3 fw-bold text-dark">USPLECHE – Sistema Nacional de Leche Cruda</h6>
+            <p class="small text-muted mb-0">uspleche.minagricultura.gov.co</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Efecto hover personalizado -->
+<style>
+  .hover-shadow:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+  }
+</style>
+
+{% endblock %}

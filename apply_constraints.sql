@@ -1,0 +1,10 @@
+-- Aplica claves primarias, AUTO_INCREMENT e índice + FK
+ALTER TABLE blog_user MODIFY COLUMN id BIGINT(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE blog_user ADD PRIMARY KEY (id);
+
+ALTER TABLE consultas MODIFY COLUMN id BIGINT(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE consultas ADD PRIMARY KEY (id);
+
+CREATE INDEX idx_consultas_user_id ON consultas(user_id);
+
+ALTER TABLE consultas ADD CONSTRAINT fk_consultas_user FOREIGN KEY (user_id) REFERENCES blog_user(id) ON DELETE CASCADE ON UPDATE CASCADE;

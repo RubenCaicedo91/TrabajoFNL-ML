@@ -1,56 +1,273 @@
 {% extends "base.html" %}
+{# Plantilla: formulario de registro de usuario.
+    Mantener los nombres de inputs `name`, `email`, `password` para que
+    el manejador en `app.register` los procese correctamente.
+    Incluye modal con la política de tratamiento de datos. #}
 
-{% block title %}Registro - LecheML Colombia{% endblock %}
+{% block title %}Registro - Del campo al algoritmo{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header text-center">
-                <h4><i class="fas fa-user-plus me-2"></i>Registrarse</h4>
+<div class="login-container min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <!-- Fondo con imagen -->
+    <div class="login-background"></div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                
+                <!-- Tarjeta de Registro Mejorada -->
+                <div class="card login-card shadow border-0 rounded-4">
+                    <!-- Header de la tarjeta -->
+                    <div class="card-header bg-success text-white text-center py-4 rounded-top-4">
+                        <i class="bi bi-person-plus display-4 mb-3 d-block"></i>
+                        <h2 class="h3 mb-0">Crear Cuenta</h2>
+                        <p class="mb-0 opacity-75">Únete a nuestra plataforma</p>
+                    </div>
+                    
+                    <!-- Cuerpo de la tarjeta -->
+                    <div class="card-body p-4 p-md-5">
+                        <!-- Mensajes Flash -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ 'danger' if category == 'danger' else 'success' }} alert-dismissible fade show" role="alert">
+                                        <i class="bi bi-{{ 'exclamation-triangle-fill' if category == 'danger' else 'check-circle-fill' }} me-2"></i>
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <!-- Formulario de Registro -->
+                        <form method="post">
+                            <!-- Nombres y apellidos separados -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label for="primer_nombre" class="form-label fw-semibold">Primer nombre <span class="text-danger">*</span></label>
+                                    <input type="text" id="primer_nombre" name="primer_nombre" class="form-control" placeholder="Primer nombre" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="segundo_nombre" class="form-label fw-semibold">Segundo nombre</label>
+                                    <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control" placeholder="Segundo nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="primer_apellido" class="form-label fw-semibold">Primer apellido <span class="text-danger">*</span></label>
+                                    <input type="text" id="primer_apellido" name="primer_apellido" class="form-control" placeholder="Primer apellido" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="segundo_apellido" class="form-label fw-semibold">Segundo apellido</label>
+                                    <input type="text" id="segundo_apellido" name="segundo_apellido" class="form-control" placeholder="Segundo apellido">
+                                </div>
+                            </div>
+
+                            <!-- Documento de identificación -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-5">
+                                    <label for="tipo_documento" class="form-label fw-semibold">Tipo de documento <span class="text-danger">*</span></label>
+                                    <select id="tipo_documento" name="tipo_documento" class="form-select" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="CC">Cédula de Ciudadanía</option>
+                                        <option value="CE">Cédula de Extranjería</option>
+                                        <option value="TI">Tarjeta de Identidad</option>
+                                        <option value="NIT">NIT</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-7">
+                                    <label for="numero_documento" class="form-label fw-semibold">Número de documento <span class="text-danger">*</span></label>
+                                    <input type="text" id="numero_documento" name="numero_documento" class="form-control" placeholder="Número de documento" required>
+                                </div>
+                            </div>
+
+                            <!-- Teléfono -->
+                            <div class="mb-4">
+                                <label for="telefono" class="form-label fw-semibold">Teléfono</label>
+                                <input type="text" id="telefono" name="telefono" class="form-control" placeholder="+57 3xx xxx xxxx">
+                            </div>
+
+                            <!-- Campo Email -->
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-envelope-fill me-2 text-success"></i>Correo Electrónico <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="bi bi-envelope text-muted"></i>
+                                    </span>
+                                    <input type="email" 
+                                           class="form-control border-start-0 py-2" 
+                                           id="email" 
+                                           name="email" 
+                                           placeholder="tucorreo@ejemplo.com"
+                                           required>
+                                </div>
+                            </div>
+
+                            <!-- Campo Contraseña -->
+                            <div class="mb-4">
+                                <label for="password" class="form-label fw-semibold text-dark">
+                                    <i class="bi bi-lock-fill me-2 text-success"></i>Contraseña <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="bi bi-key text-muted"></i>
+                                    </span>
+                                    <input type="password" 
+                                           class="form-control border-start-0 py-2" 
+                                           id="password" 
+                                           name="password" 
+                                           placeholder="Crea una contraseña segura"
+                                           required>
+                                </div>
+                                <small class="text-muted">Mínimo 6 caracteres</small>
+                            </div>
+
+                            <!-- Aceptación de tratamiento de datos -->
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="aceptoDatos" required>
+                                <label class="form-check-label" for="aceptoDatos">
+                                    Acepto el 
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalPolitica" class="text-success fw-semibold">
+                                        tratamiento de mis datos personales
+                                    </a>
+                                    según la Ley 1581 de 2012.
+                                </label>
+                            </div>
+                            <!-- Planes disponibles -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold text-dark">Elige un plan</label>
+                                <div class="list-group">
+                                    <label class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-semibold">Free</div>
+                                            <small class="text-muted">Limitaciones: acceso básico, límite en "Mis consultas" y anuncios.</small>
+                                        </div>
+                                        <input class="form-check-input mt-0" type="radio" name="plan" value="free" checked>
+                                    </label>
+                                    <label class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-semibold">Básico</div>
+                                            <small class="text-muted">Limitaciones: incluye más consultas, publicidad reducida.</small>
+                                        </div>
+                                        <input class="form-check-input mt-0" type="radio" name="plan" value="pago1">
+                                    </label>
+                                    <label class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-semibold">Premium</div>
+                                            <small class="text-muted">Sin limitaciones y sin publicidad.</small>
+                                        </div>
+                                        <input class="form-check-input mt-0" type="radio" name="plan" value="pago2">
+                                    </label>
+                                </div>
+                                <small class="text-muted">Nota: los pagos se procesan aquí para fines educativos y la suscripción dura 1 mes; luego el perfil volverá a Free automáticamente.</small>
+                            </div>
+
+                            <!-- Método de pago -->
+                            <div class="mb-4" id="payment_div">
+                                <label for="payment_method" class="form-label fw-semibold text-dark">Método de pago</label>
+                                <select id="payment_method" name="payment_method" class="form-select">
+                                    <option value="none">No aplicar / Gratis</option>
+                                    <option value="tarjeta_credito">Tarjeta Crédito</option>
+                                    <option value="tarjeta_debito">Tarjeta Débito</option>
+                                    <option value="pse">PSE</option>
+                                </select>
+                                <input type="hidden" id="payment_method_hidden" name="payment_method" value="none">
+                            </div>
+
+                            <!-- Botón de Registrar -->
+                            <div class="d-grid gap-2 mb-4">
+                                <button type="submit" class="btn btn-success btn-lg py-2 fw-semibold">
+                                    <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+                                </button>
+                            </div>
+
+                            <!-- Enlace para iniciar sesión -->
+                            <div class="text-center pt-3 border-top">
+                                <p class="mb-2 text-muted">¿Ya tienes una cuenta?</p>
+                                <a href="{{ url_for('login') }}" class="btn btn-outline-success btn-sm">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <form method="POST">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nombre Completo</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="department" class="form-label">Departamento</label>
-                        <select class="form-control" id="department" name="department" required>
-                            <option value="">Seleccionar departamento</option>
-                            <option value="Antioquia">Antioquia</option>
-                            <option value="Cundinamarca">Cundinamarca</option>
-                            <option value="Valle del Cauca">Valle del Cauca</option>
-                            <option value="Boyacá">Boyacá</option>
-                            <option value="Nariño">Nariño</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Rol</label>
-                        <select class="form-control" id="role" name="role">
-                            <option value="USER">Productor</option>
-                            <option value="ANALYST">Analista</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Registrarse</button>
-                    </div>
-                </form>
-                <div class="text-center mt-3">
-                    <p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesión aquí</a></p>
+        </div>
+    </div>
+
+    <!-- Modal Política de Tratamiento de Datos -->
+    <div class="modal fade" id="modalPolitica" tabindex="-1" aria-labelledby="modalPoliticaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-4 shadow-lg">
+                <!-- Header del Modal -->
+                <div class="modal-header bg-success text-white rounded-top-4">
+                    <h5 class="modal-title" id="modalPoliticaLabel">Política de Tratamiento de Datos Personales</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                
+                <!-- Cuerpo del Modal -->
+                <div class="modal-body p-4 text-justify">
+                    <p>De acuerdo con la <strong>Ley 1581 de 2012</strong> y el <strong>Decreto 1377 de 2013</strong>, informamos que los datos personales
+                    recolectados serán utilizados exclusivamente para los fines relacionados con la gestión académica y administrativa
+                    de nuestra plataforma <strong>Del campo al algoritmo</strong>.</p>
+
+                    <p>El titular de los datos tiene derecho a:</p>
+                    <ul>
+                        <li>Conocer, actualizar y rectificar sus datos personales.</li>
+                        <li>Solicitar prueba de la autorización otorgada para su tratamiento.</li>
+                        <li>Ser informado sobre el uso que se ha dado a sus datos.</li>
+                        <li>Presentar quejas ante la Superintendencia de Industria y Comercio por infracción a la ley.</li>
+                        <li>Revocar la autorización y/o solicitar la supresión de sus datos.</li>
+                    </ul>
+
+                    <p>Para ejercer estos derechos, puede comunicarse con nosotros a través del correo:
+                    <strong>contacto@delcampoalgoritmo.com</strong>.</p>
+
+                    <p>Al aceptar esta política, el usuario autoriza expresamente el tratamiento de sus datos personales conforme a los
+                    propósitos mencionados.</p>
+                </div>
+                
+                <!-- Footer del Modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+// Mostrar el bloque de método de pago solo si el plan es Básico o Premium
+function updatePaymentVisibility() {
+    const paymentDiv = document.getElementById('payment_div');
+    const sel = document.querySelector('input[name="plan"]:checked');
+    if (!paymentDiv) return;
+    const v = sel ? sel.value : null;
+    const pm = document.getElementById('payment_method');
+    const pmHidden = document.getElementById('payment_method_hidden');
+    const noneOption = pm ? pm.querySelector('option[value="none"]') : null;
+    if (v === 'pago1') {
+        // Básico: ocultar select, enviar 'none' automáticamente
+        paymentDiv.style.display = '';
+        if (pm) { pm.disabled = true; pm.style.display = 'none'; }
+        if (pmHidden) pmHidden.value = 'none';
+        if (noneOption) noneOption.hidden = true;
+    } else if (v === 'pago2') {
+        // Premium: mostrar select y requerir método (no mostrar 'none')
+        paymentDiv.style.display = '';
+        if (pm) { pm.disabled = false; pm.style.display = ''; }
+        if (pmHidden) pmHidden.value = '';
+        if (noneOption) noneOption.hidden = true;
+        if (pm && pm.value === 'none') pm.value = '';
+    } else {
+        paymentDiv.style.display = 'none';
+        if (pm) { pm.disabled = false; pm.style.display = ''; pm.value = 'none'; }
+        if (pmHidden) pmHidden.value = 'none';
+        if (noneOption) noneOption.hidden = false;
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input[name="plan"]').forEach(function(r){ r.addEventListener('change', updatePaymentVisibility); });
+    updatePaymentVisibility();
+});
+</script>
 {% endblock %}

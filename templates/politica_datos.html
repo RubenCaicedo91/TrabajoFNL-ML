@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Política de Tratamiento de Datos - Del campo al algoritmo{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow border-0 rounded-4">
+                
+                <!-- Encabezado -->
+                <div class="card-header bg-success text-white text-center py-4 rounded-top-4 position-relative">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-success opacity-75 rounded-top-4"></div>
+                    <div class="position-relative">
+                        <i class="bi bi-shield-lock display-5 mb-3 d-block"></i>
+                        <h2 class="h4 fw-bold">Política de Tratamiento de Datos Personales</h2>
+                        <p class="mb-0 opacity-75">Del campo al Algoritmo</p>
+                    </div>
+                </div>
+
+                <!-- Cuerpo -->
+                <div class="card-body p-5 text-justify">
+                    <p>
+                        En <strong>Del campo al Algoritmo</strong> respetamos y protegemos los datos personales de nuestros usuarios. 
+                        En cumplimiento de la <strong>Ley 1581 de 2012</strong>, el <strong>Decreto 1377 de 2013</strong> y demás normas relacionadas con la protección de datos personales en Colombia, 
+                        informamos los términos bajo los cuales realizamos el tratamiento de la información recolectada a través de nuestra plataforma.
+                    </p>
+
+                    <h5 class="mt-4 text-success fw-semibold">1. Responsable del Tratamiento</h5>
+                    <p>
+                        <strong>Nombre:</strong> Del campo al Algoritmo<br>
+                        <strong>Correo electrónico:</strong> contacto@example.com<br>
+                        <strong>Finalidad:</strong> Gestionar el acceso, registro y uso de la plataforma, comunicaciones con los usuarios, 
+                        y fines educativos o de investigación.
+                    </p>
+
+                    <h5 class="mt-4 text-success fw-semibold">2. Datos Personales Recolectados</h5>
+                    <p>
+                        Los datos solicitados incluyen, entre otros, nombre completo, correo electrónico y contraseña, los cuales son necesarios 
+                        para permitir el registro y correcto funcionamiento de la cuenta de usuario.
+                    </p>
+
+                    <h5 class="mt-4 text-success fw-semibold">3. Finalidades del Tratamiento</h5>
+                    <ul>
+                        <li>Permitir la creación, autenticación y gestión de cuentas de usuario.</li>
+                        <li>Enviar información relacionada con el uso de la plataforma y actividades académicas.</li>
+                        <li>Dar cumplimiento a obligaciones legales o contractuales.</li>
+                        <li>Realizar análisis estadísticos y mejoras del servicio.</li>
+                    </ul>
+
+                    <h5 class="mt-4 text-success fw-semibold">4. Derechos de los Titulares</h5>
+                    <p>
+                        De acuerdo con la Ley 1581 de 2012, los titulares tienen derecho a:
+                    </p>
+                    <ul>
+                        <li>Conocer, actualizar y rectificar sus datos personales.</li>
+                        <li>Solicitar prueba de la autorización otorgada para su tratamiento.</li>
+                        <li>Ser informados sobre el uso dado a sus datos.</li>
+                        <li>Presentar quejas ante la Superintendencia de Industria y Comercio (SIC).</li>
+                        <li>Revocar la autorización o solicitar la supresión del dato cuando no se respeten los principios legales.</li>
+                    </ul>
+
+                    <h5 class="mt-4 text-success fw-semibold">5. Medidas de Seguridad</h5>
+                    <p>
+                        Implementamos medidas técnicas, humanas y administrativas razonables para proteger la información 
+                        contra el acceso, pérdida, alteración o uso no autorizado.
+                    </p>
+
+                    <h5 class="mt-4 text-success fw-semibold">6. Vigencia de la Política</h5>
+                    <p>
+                        Esta política entra en vigencia a partir de su publicación y podrá ser actualizada conforme a disposiciones 
+                        legales o cambios en la operación de la plataforma. Toda modificación será comunicada oportunamente a los usuarios 
+                        a través de nuestros canales oficiales.
+                    </p>
+
+                    <div class="alert alert-success mt-4">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        Al aceptar esta política, el usuario autoriza el tratamiento de sus datos personales conforme a las finalidades descritas.
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('register') }}" class="btn btn-outline-success px-4">
+                            <i class="bi bi-arrow-left-circle me-2"></i>Volver al Registro
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

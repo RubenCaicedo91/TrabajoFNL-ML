@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{# Plantilla: Vista de detalle de una consulta guardada.
+  Muestra parámetros, resultados estimados y precios asociados.
+  No cambiar el formato de `consulta_data` ya que la vista espera claves concretas. #}
+{% block title %}Ver consulta{% endblock %}
+
+{% block content %}
+<div class="card shadow-lg border-0 mb-4 rounded-4">
+  <div class="card-body text-center py-3">
+    <h2 class="fw-bold text-success mb-1">{{ consulta.titulo }}</h2>
+    <p class="text-muted small mb-0">Creada: {{ consulta.created_at | format_colombia('%Y-%m-%d %H:%M') if consulta.created_at else '' }}</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-7">
+    <div class="card mb-3 shadow-sm border-success">
+      <div class="card-header bg-success text-white fw-bold">📊 Resumen de la consulta</div>
+      <div class="card-body">
+          <h6 class="fw-semibold">Descripción</h6>
+          <p class="text-muted">{{ consulta.descripcion or 'Sin descripción' }}</p>
+
+          <hr>
+          <h6 class="fw-semibold">Parámetros</h6>
+          <div class="row mb-2">
+            <div class="col-md-5">
+              <label class="form-label small">Raza</label>
+              <div class="form-control-plaintext">{{ (consulta_data and consulta_data.get('raza')) or '—' }}</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small"># Vacas</label>
+              <div class="form-control-plaintext">{{ (consulta_data and consulta_data.get('num_vacas')) or '—' }}</div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label small">Fecha guardada</label>
+              <div class="form-control-plaintext">{{ consulta.created_at | format_colombia('%Y-%m-%d %H:%M') if consulta.created_at else '—' }}</div>
+            </div>
+          </div>
+
+          <label class="form-label small">Departamentos</label>
+          <div class="mb-2">
+            {% if consulta_data and consulta_data.get('departamentos') %}
+              {% for d in consulta_data.get('departamentos') %}
+                <span class="badge bg-light text-dark border me-1 mb-1">{{ d }}</span>
+              {% endfor %}
+            {% else %}
+              <p class="text-muted small">No hay departamentos asociados.</p>
+            {% endif %}
+          </div>
+
+          <hr>
+          <h6 class="fw-semibold">Producción estimada</h6>
+          {% if prod_info %}
+            <div class="mb-2">
+              <div class="row">
+                <div class="col-md-4">
+                  <label class="form-label small">Estimación diaria (total)</label>
+                  <div class="form-control-plaintext fw-bold">{{ '{:,.0f}'.format(prod_info.litros_diario_total) }} L/día</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small">Estimación mensual (total)</label>
+                  <div class="form-control-plaintext fw-bold">{{ '{:,.0f}'.format(prod_info.litros_mensual_total) }} L/mes</div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small">Promedio por vaca</label>
+                  <div class="form-control-plaintext fw-bold">{{ '{:,.1f}'.format(prod_info.litros_por_vaca_diario) }} L/día · {{ '{:,.0f}'.format(prod_info.litros_por_vaca_mensual) }} L/mes</div>
+                </div>
+              </div>
+            </div>
+            {% if prod_info.por_departamento and prod_info.por_departamento|length > 0 %}
+              <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                  <thead><tr><th>Departamento</th><th class="text-end">Precio (COP)</th></tr></thead>
+                  <tbody>
+                    {% for d in prod_info.por_departamento %}
+                      <tr>
+                        <td>{{ d.departamento }}</td>
+                        <td class="text-end">{% if d.precio %}{{ '{:,.0f}'.format(d.precio) }}{% else %}N/A{% endif %}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% endif %}
+          {% else %}
+            <p class="text-muted">No hay datos suficientes para estimar producción (falta raza o número de vacas).</p>
+          {% endif %}
+
+        </div>
+      </div>
+
+    
+      
+    </div>
+  </div>
+{% endblock %}
+{% block scripts %}{% endblock %}

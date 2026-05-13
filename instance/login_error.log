@@ -1,0 +1,152 @@
+
+--- ERROR en /login ---
+Traceback (most recent call last):
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\cursors.py", line 157, in execute
+    result = self._query(query)
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 575, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 826, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 1203, in read
+    first_packet = self.connection._read_packet()
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 782, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'blog_user.tipo_documento' in 'field list'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\app.py", line 118, in login
+    user = User.query.filter_by(email=email).first()
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\cursors.py", line 157, in execute
+    result = self._query(query)
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\cursors.py", line 328, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 575, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 826, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 1203, in read
+    first_packet = self.connection._read_packet()
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\connections.py", line 782, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Users\RUBENCHO\Documents\U\Semestres\VI\CAD612023642C-A MACHINE LEARNING (CONCEPTOS)\Proyecto-Final-ML\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1054, "Unknown column 'blog_user.tipo_documento' in 'field list'")
+[SQL: SELECT blog_user.id AS blog_user_id, blog_user.name AS blog_user_name, blog_user.email AS blog_user_email, blog_user.password AS blog_user_password, blog_user.is_admin AS blog_user_is_admin, blog_user.role AS blog_user_role, blog_user.subscription_expires AS blog_user_subscription_expires, blog_user.tipo_documento AS blog_user_tipo_documento, blog_user.numero_documento AS blog_user_numero_documento, blog_user.primer_nombre AS blog_user_primer_nombre, blog_user.segundo_nombre AS blog_user_segundo_nombre, blog_user.primer_apellido AS blog_user_primer_apellido, blog_user.segundo_apellido AS blog_user_segundo_apellido, blog_user.telefono AS blog_user_telefono, blog_user.direccion AS blog_user_direccion, blog_user.fecha_nacimiento AS blog_user_fecha_nacimiento, blog_user.created_at AS blog_user_created_at, blog_user.updated_at AS blog_user_updated_at 
+FROM blog_user 
+WHERE blog_user.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'admin@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

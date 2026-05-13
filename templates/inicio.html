@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+{# Plantilla: Página de inicio. Contiene llamados a secciones que requieren
+    autenticación para acceder a análisis detallados. Mantener los enlaces
+    a rutas protegidas tal como están. #}
+{% block title %}Inicio - Del campo al algoritmo{% endblock %}
+
+{% block content %}
+<div class="hero-banner">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="emoji">🐄</span> Del Campo al Algoritmo
+    </h1>
+    <h5 class="hero-subtitle">
+      Explorando el comportamiento de la producción de leche en Colombia 🥛
+    </h5>
+  </div>
+</div>
+
+    <!-- Botones para Modales -->
+    <div class="text-center mb-5 mt-4">
+        <button class="btn btn-success btn-lg me-3" data-bs-toggle="modal" data-bs-target="#modalEstadisticas">
+            <i class="bi bi-bar-chart-fill me-2"></i>Ver Estadísticas
+        </button>
+        <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalBeneficios">
+            <i class="bi bi-award-fill me-2"></i>Conoce los Beneficios
+        </button>
+    </div>
+    <!-- Modal: Estadísticas -->
+<div class="modal fade" id="modalEstadisticas" tabindex="-1" aria-labelledby="modalEstadisticasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="modalEstadisticasLabel">
+          <i class="bi bi-bar-chart-fill me-2"></i> Estadísticas del Sector Lechero Colombiano
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="fs-6">
+          Según los reportes del Ministerio de Agricultura, Colombia produce más de 
+          <strong>6 millones de litros diarios de leche cruda</strong>, siendo los departamentos de
+          <strong>Cundinamarca, Antioquia y Nariño</strong> los principales productores.
+        </p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Incremento anual promedio del 3% en la producción nacional.</li>
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Mayor acopio en zonas de clima templado y frío.</li>
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Presencia constante de razas especializadas en el altiplano.</li>
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Precios promedio entre 1.400 y 1.800 COP por litro según región.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Beneficios -->
+<div class="modal fade" id="modalBeneficios" tabindex="-1" aria-labelledby="modalBeneficiosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="modalBeneficiosLabel">
+          <i class="bi bi-award-fill me-2"></i> Beneficios del Proyecto
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="fs-6">
+          Este proyecto integra datos oficiales del sector lácteo colombiano para generar análisis
+          precisos sobre la producción, precios y razas bovinas. La información procesada permitirá
+          la creación de modelos predictivos útiles para la toma de decisiones.
+        </p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-primary me-2"></i>Apoya la planificación productiva y la gestión regional.</li>
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-primary me-2"></i>Facilita el monitoreo del precio pagado al productor.</li>
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-primary me-2"></i>Promueve el uso de datos abiertos en la agroindustria.</li>
+          <li class="list-group-item"><i class="bi bi-check-circle-fill text-primary me-2"></i>Contribuye a la sostenibilidad del sector ganadero.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Sección Contextualización -->
+    <div class="card contextualizacion-card mb-5">
+        <div class="row g-0 align-items-stretch">
+            <!-- Imagen -->
+            <div class="col-md-6">
+                <div class="image-container h-100">
+                    <img src="{{ url_for('static', filename='images/vacas.jpg') }}" 
+                         class="contextualizacion-imagen w-100 h-100" 
+                         alt="Producción de leche en Colombia">
+                    <div class="image-overlay"></div>
+                </div>
+            </div>
+            
+            <!-- Contenido -->
+            <div class="col-md-6">
+                <div class="contextualizacion-contenido h-100 p-4 p-lg-5">
+                    <h3 class="titulo-seccion mb-4">Contexto de la Producción Lechera</h3>                    
+                    <div class="contextualizacion-texto">
+                        <p class="mb-4">
+                            La producción de leche cruda representa una de las principales actividades económicas 
+                            del sector agropecuario en Colombia. Miles de familias rurales dependen de esta labor 
+                            para su sustento, y factores como el <strong>clima, la raza bovina y la ubicación geográfica</strong> 
+                            influyen directamente en la cantidad de leche producida y en el precio pagado al productor.
+                        </p>
+                        
+                        <p class="mb-4">
+                            Sin embargo, los productores enfrentan dificultades para anticipar los periodos de 
+                            mayor o menor acopio, lo que limita su capacidad de planificación y puede afectar 
+                            su rentabilidad.
+                        </p>
+                        
+                        <div class="proyecto-destacado p-3 rounded-3 mt-4">
+                            <p class="mb-0">
+                                <strong>Del campo al algoritmo</strong> busca aprovechar el poder del 
+                                <em>Machine Learning</em> para analizar y predecir los comportamientos 
+                                del mercado lácteo colombiano.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carrusel de Imágenes -->
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-header bg-olive text-white text-center py-3">
+                        <h4 class="mb-0"><i class="bi bi-images me-2"></i>Galería de la Producción Lechera</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="carouselLechero" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselLechero" data-bs-slide-to="0" class="active"></button>
+                                <button type="button" data-bs-target="#carouselLechero" data-bs-slide-to="1"></button>
+                                <button type="button" data-bs-target="#carouselLechero" data-bs-slide-to="2"></button>
+                                <button type="button" data-bs-target="#carouselLechero" data-bs-slide-to="3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="{{ url_for('static', filename='images/ordeño.png') }}" class="d-block w-100 carousel-image" alt="Producción lechera en Colombia">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <div class="bg-dark bg-opacity-75 p-4 rounded-3 border border-light border-opacity-25">
+                                            <h5 class="fw-bold mb-2">Producción Tradicional</h5>
+                                            <p class="mb-0 fs-6">Métodos ancestrales de ordeño en fincas colombianas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ url_for('static', filename='images/ordeñoin.png') }}" class="d-block w-100 carousel-image" alt="Tecnología en la producción">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <div class="bg-dark bg-opacity-75 p-4 rounded-3 border border-light border-opacity-25">
+                                            <h5 class="fw-bold mb-2">Tecnología Moderna</h5>
+                                            <p class="mb-0 fs-6">Implementación de tecnología en la industria láctea</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ url_for('static', filename='images/proceso.png') }}" class="d-block w-100 carousel-image" alt="Distribución de leche">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <div class="bg-dark bg-opacity-75 p-4 rounded-3 border border-light border-opacity-25">
+                                            <h5 class="fw-bold mb-2">Cadena de Distribución</h5>
+                                            <p class="mb-0 fs-6">Proceso de acopio y distribución a nivel nacional</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ url_for('static', filename='images/final.png') }}" class="d-block w-100 carousel-image" alt="Productos lácteos">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <div class="bg-dark bg-opacity-75 p-4 rounded-3 border border-light border-opacity-25">
+                                            <h5 class="fw-bold mb-2">Productos Derivados</h5>
+                                            <p class="mb-0 fs-6">Transformación de la leche en diversos productos</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselLechero" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Anterior</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselLechero" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Siguiente</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informe de Calidad de Vida (Leyenda) -->
+<div class="ods-container p-4 rounded-4 mb-5 section-agua">
+   <!-- Título principal -->
+    <h3 class="text-center text-white p-3 rounded shadow titulo-box">
+        <i class="bi bi-bullseye me-2"></i>
+                    Desarrollo Económico y Competitividad
+    </h3>
+
+    <!-- Subtítulo -->
+    <h4 class="text-center mb-3 text-light">
+        <i class="bi bi-bar-chart-line me-1"></i>Informe de Calidad de Vida 2024
+    </h4>
+
+    <!-- Imagen independiente -->
+    <div class="text-center mb-3">
+        <img src="{{ url_for('static', filename='images/leyenda.png') }}" 
+             alt="Informe de Calidad de Vida 2024" 
+             class="img-fluid rounded-3 shadow-sm">
+    </div>
+
+    <!-- Texto descriptivo -->
+    <p class="fs-6 text-white text-center">
+        Consulta los indicadores socioeconómicos de Sabana Centro y su relación con la producción lechera.
+    </p>
+    <p class="fs-6 text-white text-center">
+        <small class="opacity-75"><i class="bi bi-bar-chart-line me-1"></i>Datos regionales</small>
+    </p>
+</div>
+
+
+    <!-- Funcionalidades CON LAS IMÁGENES ORIGINALES -->
+    <div class="funcionalidades-container rounded-4 mb-5">
+        <h3 class="text-center text-white p-3 rounded shadow titulo2-box mb-4">
+            <strong>
+            <i class="bi bi-lightbulb me-2"></i>Funcionalidades del Sistema
+            </strong>
+        </h3>
+        <p class="fs-6 text-center mb-4">
+            <strong>
+            Explora el comportamiento de la producción de leche en Colombia usando datos públicos de la USP Leche. 
+            Los usuarios pueden investigar periodos de mayor acopio, analizar la influencia de la raza y el departamento, 
+            y recibir recomendaciones personalizadas.
+            </strong>
+        </p>
+
+        <div class="row justify-content-center g-4">
+           <div class="col-md-4">
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('acopio.analisis_acopio') }}" class="text-decoration-none">
+        <div class="card card-analisis h-100 shadow-sm text-center p-3 text-white zoom-card">
+            <div class="card-overlay"></div>
+            <div class="card-body position-relative">
+                <h5 class="card-title mb-2">Épocas de mayor acopio</h5>
+                <p class="card-text fs-6">
+                    Visualiza los periodos del año con mayor volumen y mejor precio de la leche.
+                </p>
+                <small class="opacity-75">
+                    <i class="bi bi-clock-history me-1"></i>Análisis temporal
+                </small>
+            </div>
+        </div>
+    </a>
+    {% else %}
+    <div class="card card-analisis h-100 shadow-sm text-center p-3 text-white zoom-card" 
+         onclick="alert('Para acceder a esta información, debe iniciar sesión.')"
+         data-bs-toggle="tooltip" data-bs-title="Haz clic para más información">
+        <div class="card-overlay"></div>
+        <div class="card-body position-relative">
+            <h5 class="card-title mb-2">Análisis de Acopio de leche Cruda</h5>
+            <p class="card-text fs-6">
+                Visualiza los periodos del año con mayor y menor volumen de producción de leche cruda 
+                y predicción de los siguientes seis meses.
+            </p>
+            <small class="opacity-75">
+                <i class="bi bi-clock-history me-1"></i>Análisis temporal
+            </small>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+            <!-- Funcionalidad 2 - CON IMAGEN ORIGINAL -->
+        <div class="col-md-4">
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('precio.mostrar_precio') }}" class="text-decoration-none">
+        <div class="card card-precio h-100 shadow-sm text-center p-3 text-white zoom-card">
+            <div class="card-overlay"></div>
+            <div class="card-body position-relative">
+                <h5 class="card-title mb-2">Análisis de Precio</h5>
+                <p class="card-text fs-6">
+                    Analiza el comportamiento del precio nacional por año y visualiza la predicción a 6 meses a nivel nacional y departamental.
+                </p>
+                <small class="opacity-75"><i class="bi bi-currency-dollar me-1"></i>Análisis económico</small>
+            </div>
+        </div>
+    </a>
+    {% else %}
+    <div class="card card-precio h-100 shadow-sm text-center p-3 text-white zoom-card" 
+         onclick="alert('Para acceder a esta información, debe iniciar sesión.')"
+         data-bs-toggle="tooltip" data-bs-title="Haz clic para más información">
+        <div class="card-overlay"></div>
+        <div class="card-body position-relative">
+            <h5 class="card-title mb-2">Análisis de Precio</h5>
+            <p class="card-text fs-6">
+                Visualiza el comportamiento histórico del precio de la leche cruda y predicciones para los próximos meses.
+            </p>
+            <small class="opacity-75"><i class="bi bi-currency-dollar me-1"></i>Análisis económico</small>
+        </div>
+    </div>
+    {% endif %}
+</div>
+    
+            <!-- Funcionalidad 3 - CON IMAGEN ORIGINAL -->
+             <div class="col-md-4">
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('inversion.inversion') }}" class="text-decoration-none">
+        <div class="card card-censo h-100 shadow-sm text-center p-3 text-white zoom-card">
+            <div class="card-overlay"></div>
+            <div class="card-body position-relative">
+                <h5 class="card-title mb-2">Censo Bovino</h5>
+                <p class="card-text fs-6">
+                    Analiza el censo bovino y visualiza información de razas para invertir.
+                </p>
+                <small class="opacity-75"><i class="bi bi-robot me-1"></i>Machine Learning</small>
+            </div>
+        </div>
+    </a>
+    {% else %}
+    <div class="card card-censo h-100 shadow-sm text-center p-3 text-white zoom-card" 
+         onclick="alert('Para acceder a esta información, debe iniciar sesión.')"
+         data-bs-toggle="tooltip" data-bs-title="Haz clic para más información">
+        <div class="card-overlay"></div>
+        <div class="card-body position-relative">
+            <h5 class="card-title mb-2">Censo Bovino</h5>
+            <p class="card-text fs-6">
+                Analiza el censo bovino y visualiza información de razas para invertir.
+            </p>
+            <small class="opacity-75"><i class="bi bi-robot me-1"></i>Machine Learning</small>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+        </div>
+
+        <!-- Llamada a la acción (solo para visitantes no autenticados) -->
+        {% if not current_user.is_authenticated %}
+        <div class="text-center mt-5">
+            <div class="p-4 bg-light rounded-3">
+                <h5 class="text-success mb-3">
+                    <i class="bi bi-rocket-takeoff me-2"></i>¿Listo para comenzar?
+                </h5>
+                <p class="mb-3">Regístrate ahora y descubre el poder del análisis predictivo en la producción lechera</p>
+                <a href="{{ url_for('register') }}" class="btn btn-success btn-lg">
+                    <i class="bi bi-person-plus me-2"></i>Crear Cuenta 
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

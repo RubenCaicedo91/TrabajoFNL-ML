@@ -1,99 +1,303 @@
 <!DOCTYPE html>
+<!--
+    Plantilla base principal usada por todas las vistas.
+    Contiene la barra de navegación, manejo de mensajes flash, botón "Volver"
+    global y el modal de expiración de sesión.
+-->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐄 Del campo al algoritmo 🐄</title>
-
-    <!-- Meta -->
-    <meta name="description" content="Del campo al algoritmo - análisis y predicción de la producción de leche en Colombia usando ML">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Leche Cruda - Colombia{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts (Inter for a professional, crisp UI) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-    <!-- Project styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!-- Favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
-    <meta name="theme-color" content="#0d6efd">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="bg-light">
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+
+<body style="padding-top: 70px;">
+
+    <!-- ==================== ENCABEZADO ==================== -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-darkblue fixed-top shadow">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
-                <img src="{{ url_for('static', filename='images/favicon.svg') }}" alt="logo" width="36" height="36" class="me-2">
-                <span class="fw-semibold text-dark">Del campo al algoritmo</span>
+
+            <!-- Nombre del proyecto -->
+            <a class="navbar-brand navbar-brand-custom" href="{{ url_for('inicio') }}" data-bs-toggle="tooltip" data-bs-title="Página de inicio">
+                <i class="bi bi-droplet-half me-2"></i>🐄 <strong>Producción de Leche Cruda en Colombia</strong> 🥛
             </a>
+
+            <!-- Botón para móviles -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Menú colapsable -->
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-                    {% if current_user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle me-1"></i>{{ current_user.name }}
+                <div class="navbar-nav ms-auto d-flex align-items-center">
+
+                    <!-- ======= MENÚ DESPLEGABLE PRINCIPAL ======= -->
+                    <div class="nav-item dropdown me-2">
+                        <a class="btn btn-outline-light btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-menu-button-wide me-1"></i> Menú
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('index1') }}">
+                                    <i class="bi bi-graph-up-arrow me-2"></i> Entendimiento del Negocio
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('index2') }}">
+                                    <i class="bi bi-gear-wide-connected me-2"></i> Entendimiento e Ingeniería de Datos
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- ======= FIN MENÚ ======= -->
+
+                    {# Mostrar menú de usuario si hay sesión activa. #}
+                    {% if 'usuario' in session %}
+                        <!-- Menú de usuario -->
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" data-bs-title="Menú de usuario">
+                                <i class="bi bi-person-gear me-1"></i> {{ session['usuario'] }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('perfil.perfil') }}"><i class="bi bi-person-badge me-2"></i>Mi perfil</a></li>
+                                {% if current_user.is_authenticated and (current_user.email == 'admin@example.com' or current_user.is_admin or current_user.role in ['pago1','pago2']) %}
+                                <li><a class="dropdown-item" href="{{ url_for('perfil.mis_consultas') }}"><i class="bi bi-database me-2"></i>Mis consultas</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{{ url_for('perfil.suscripcion') }}"><i class="bi bi-credit-card-2-front me-2"></i>Gestionar suscripción</a></li>
+                                {% if current_user.is_authenticated and (current_user.email == 'admin@example.com' or current_user.is_admin or current_user.role == 'pago2') %}
+                                <li><a class="dropdown-item" href="{{ url_for('perfil.valor_venta') }}"><i class="bi bi-calculator me-2"></i>Valor estimado venta</a></li>
+                                {% endif %}
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
+                                <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="bi bi-power me-2"></i>Cerrar sesión</a></li>
                             </ul>
-                        </li>
+                        </div>
                     {% else %}
-                        <li class="nav-item me-2">
-                            <a class="nav-link text-dark" href="{{ url_for('login') }}">Iniciar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-primary btn-sm text-white" href="{{ url_for('register') }}">Registrarse</a>
-                        </li>
+                        <!-- Botones de inicio y registro -->
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm me-2">
+                            <i class="bi bi-key me-1"></i> Iniciar sesión
+                        </a>
+                        <a href="{{ url_for('register') }}" class="btn btn-light btn-sm">
+                            <i class="bi bi-person-add me-1"></i> Registrarse
+                        </a>
                     {% endif %}
-                </ul>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="container my-4">
+    <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+    <main class="container mt-4 py-3">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
                     <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                        <i class="bi bi-{{ 'exclamation-triangle-fill' if category == 'error' else 'check-circle-fill' }} me-2"></i>
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
+        {# Botón "Volver" presente en todas las páginas excepto la página de inicio (ruta 'inicio') #}
+        {% if request.path != url_for('inicio') %}
+            <div class="mb-3">
+                <button type="button" id="btn-volver" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Volver
+                </button>
+            </div>
+            <script>
+                (function(){
+                    const btn = document.getElementById('btn-volver');
+                    if(!btn) return;
+                    btn.addEventListener('click', function(){
+                        try{
+                            // Si hay historial previo, ir atrás; si no, redirigir al inicio
+                            if(window.history.length > 1){
+                                window.history.back();
+                            } else {
+                                window.location.href = "{{ url_for('inicio') }}";
+                            }
+                        } catch(e){
+                            window.location.href = "{{ url_for('inicio') }}";
+                        }
+                    });
+                })();
+            </script>
+        {% endif %}
+        
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer Navigation -->
-    <footer class="footer-nav">
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-dark text-white py-4 mt-5">
         <div class="container">
-            <nav class="nav justify-content-center">
-                <a class="nav-link text-muted" href="{{ url_for('index') }}">Inicio</a>
-                <a class="nav-link text-muted" href="#">Análisis</a>
-                <a class="nav-link text-muted" href="#">Predicciones</a>
-                <a class="nav-link text-muted" href="#">Regiones</a>
-                <a class="nav-link text-muted" href="#">Configuración</a>
-            </nav>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <ul class="list-unstyled mb-2">
+                        <li><strong>Universidad De Cundinamarca</strong></li>
+                        <li>Ingeniería De Sistemas Y Computación</li>
+                        <li>Machine Learning</li>
+                        <li>Proyecto Final - 2025</li>
+                    </ul>
+                    <small class="text-muted">Del campo al Algoritmo - Explorando la Producción Lechera</small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <ul class="list-unstyled mb-2">
+                        <li>
+                            <i class="bi bi-envelope me-2"></i>
+                            <a href="mailto:contacto@example.com" class="text-white text-decoration-none">
+                                contacto@example.com
+                            </a>
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Dirección: Autopista Chía - Cajicá | Sector "El Cuarenta" |
+                        </li>
+                        <li>
+                            <i class="bi bi-telephone me-2"></i>
+                            <a href="tel:+573250123456" class="text-white text-decoration-none">
+                                +57 325 0123 456
+                            </a>
+                        </li>
+                    </ul>
+                    <small class="text-muted">Contacta con nosotros</small>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    {% block scripts %}{% endblock %}
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+    </script>
+    <!-- Modal de aviso de expiración de sesión -->
+    <div class="modal fade" id="sessionExpiryModal" tabindex="-1" aria-labelledby="sessionExpiryLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sessionExpiryLabel">Su sesión está por expirar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p id="expiryMessage">Tu sesión expirará en <span id="expiryCountdown">120</span> segundos por inactividad.</p>
+            <p class="text-muted small">Si desea continuar trabajando, haga clic en "Extender sesión".</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="extendSessionBtn" class="btn btn-primary">Extender sesión</button>
+            <button type="button" id="logoutNowBtn" class="btn btn-outline-danger">Cerrar sesión ahora</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script para detectar inactividad del usuario y mostrar modal 2 minutos antes del cierre -->
+    <script>
+        (function(){
+            // Configuración
+            const TOTAL_INACTIVITY_MS = 30 * 60 * 1000; // 30 minutos
+            const WARNING_BEFORE_MS = 2 * 60 * 1000; // mostrar modal 2 minutos antes
+            const THROTTLE_KEEPALIVE_MS = 60 * 1000; // no enviar keepalive más de 1 vez por minuto
+
+            let inactivityTimer = null;
+            let warningTimer = null;
+            let lastKeepalive = 0;
+            let countdownInterval = null;
+
+            const modalEl = document.getElementById('sessionExpiryModal');
+            const expiryCountdownEl = document.getElementById('expiryCountdown');
+            const extendBtn = document.getElementById('extendSessionBtn');
+            const logoutNowBtn = document.getElementById('logoutNowBtn');
+
+            // Bootstrap modal instance
+            const bsModal = new bootstrap.Modal(modalEl, {keyboard: false, backdrop: 'static'});
+
+            function sendKeepalive(){
+                const now = Date.now();
+                if(now - lastKeepalive < THROTTLE_KEEPALIVE_MS) return Promise.resolve();
+                lastKeepalive = now;
+                return fetch('/keepalive', {method: 'POST', credentials: 'same-origin'})
+                    .catch(()=>{});
+            }
+
+            function clearTimers(){
+                if(inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = null; }
+                if(warningTimer) { clearTimeout(warningTimer); warningTimer = null; }
+                if(countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+            }
+
+            function startTimers(){
+                clearTimers();
+                // Programar advertencia
+                const timeToWarning = TOTAL_INACTIVITY_MS - WARNING_BEFORE_MS;
+                warningTimer = setTimeout(showWarningModal, timeToWarning);
+                // Programar cierre forzado si no hay interacción
+                inactivityTimer = setTimeout(function(){
+                    window.location.href = '/logout';
+                }, TOTAL_INACTIVITY_MS);
+            }
+
+            function showWarningModal(){
+                // Calcular segundos restantes
+                let remainingMs = TOTAL_INACTIVITY_MS - (Date.now() - (lastKeepalive || Date.now()));
+                if(remainingMs < 0) remainingMs = 0;
+                let remainingSec = Math.ceil(remainingMs / 1000);
+                expiryCountdownEl.textContent = remainingSec;
+                bsModal.show();
+
+                // Contador regresivo en el modal
+                countdownInterval = setInterval(function(){
+                    remainingSec -= 1;
+                    expiryCountdownEl.textContent = remainingSec;
+                    if(remainingSec <= 0){
+                        clearInterval(countdownInterval);
+                        // Si llega a cero, forzar logout
+                        window.location.href = '/logout';
+                    }
+                }, 1000);
+            }
+
+            // Eventos para extender sesión o cerrar ahora
+            extendBtn.addEventListener('click', function(){
+                sendKeepalive().then(function(){
+                    bsModal.hide();
+                    // resetear timers: consideramos que keepalive actualiza last_activity en servidor
+                    lastKeepalive = Date.now();
+                    startTimers();
+                });
+            });
+
+            logoutNowBtn.addEventListener('click', function(){
+                window.location.href = '/logout';
+            });
+
+            function resetOnActivity(){
+                // En cada interacción enviamos keepalive (throttled) y reiniciamos timers locales
+                sendKeepalive();
+                lastKeepalive = Date.now();
+                startTimers();
+                // Si modal está abierto, actualizar countdown y ocultarlo
+                try{ if(modalEl.classList.contains('show')) bsModal.hide(); } catch(e){}
+            }
+
+            // Registrar eventos de interacción
+            ['click','mousemove','keydown','scroll','touchstart'].forEach(evt => {
+                window.addEventListener(evt, resetOnActivity, {passive: true});
+            });
+
+            // Inicializar timers al cargar
+            startTimers();
+        })();
+    </script>
 </body>
 </html>

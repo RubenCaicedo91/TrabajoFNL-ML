@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Suscripción - Mi Perfil{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-primary text-white">Gestión de Suscripción</div>
+  <div class="card-body">
+    <p>Plan actual: <strong>{{ user.role|capitalize }}</strong></p>
+    <p>Vence: <strong>{{ user.subscription_expires|format_colombia("%Y-%m-%d") if user.subscription_expires else 'N/A' }}</strong></p>
+
+    <hr>
+    <h5>Cambiar o renovar plan</h5>
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label">Selecciona un plan</label>
+        <select id="plan_select" name="plan" class="form-select">
+          <option value="free" {% if user.role=='free' %}selected{% endif %}>Free — Limitado (con publicidad)</option>
+          <option value="pago1" {% if user.role=='pago1' %}selected{% endif %}>Básico — más consultas</option>
+          <option value="pago2" {% if user.role=='pago2' %}selected{% endif %}>Premium — sin limitaciones</option>
+        </select>
+      </div>
+      <div class="mb-3" id="payment_div_sub">
+        <label class="form-label">Método de pago</label>
+        <select id="payment_method_sub" name="payment_method" class="form-select">
+          <option value="tarjeta_credito">Tarjeta Crédito</option>
+          <option value="tarjeta_debito">Tarjeta Débito</option>
+          <option value="pse">PSE</option>
+          <option value="none">No aplicar</option>
+        </select>
+        <input type="hidden" id="payment_method_hidden_sub" name="payment_method" value="none">
+      </div>
+      <div class="d-flex gap-2">
+        <button name="action" value="change_plan" class="btn btn-primary">Aplicar cambio / Contratar</button>
+        <button name="action" value="renew" class="btn btn-outline-success">Renovar 30 días</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+// Mostrar método de pago solo para planes pago1/pago2
+function updatePaymentPerfil() {
+  const sel = document.getElementById('plan_select');
+  const pd = document.getElementById('payment_div_sub');
+  if (!sel || !pd) return;
+  const v = sel.value;
+  const pm = document.getElementById('payment_method_sub');
+  const pmHidden = document.getElementById('payment_method_hidden_sub');
+  const noneOption = pm ? pm.querySelector('option[value="none"]') : null;
+  if (v === 'pago1') {
+    pd.style.display = '';
+    if (pm) { pm.disabled = true; pm.style.display = 'none'; }
+    if (pmHidden) pmHidden.value = 'none';
+    if (noneOption) noneOption.hidden = true;
+  } else if (v === 'pago2') {
+    pd.style.display = '';
+    if (pm) { pm.disabled = false; pm.style.display = ''; }
+    if (pmHidden) pmHidden.value = '';
+    if (noneOption) noneOption.hidden = true;
+    if (pm && pm.value === 'none') pm.value = '';
+  } else {
+    pd.style.display = 'none';
+    if (pm) { pm.disabled = false; pm.style.display = ''; pm.value = 'none'; }
+    if (pmHidden) pmHidden.value = 'none';
+    if (noneOption) noneOption.hidden = false;
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  const sel = document.getElementById('plan_select');
+  if (sel) sel.addEventListener('change', updatePaymentPerfil);
+  updatePaymentPerfil();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Análisis de Acopio{% endblock %}
+
+{% block content %}
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="container my-4">
+
+   
+    <!-- 📊 TÍTULO -->
+<div class="hero-banner hero-analisis hero-narrow mb-4 shadow-lg rounded">
+  <div class="hero-content text-center">
+    <h1 class="hero-title">
+      📊 Análisis de Volumen de Acopio
+    </h1>
+    <h5 class="hero-subtitle">
+      Explorando tendencias y aportes regionales en la producción lechera
+    </h5>
+  </div>
+</div>
+
+    <!-- 🗓️ SELECCIÓN DE AÑO -->
+    <div class="text-center mb-4">
+    <div class="d-inline-block border border-success rounded p-3 shadow-sm bg-primary text-white">
+        <form method="POST" class="d-inline-block m-0">
+            <label for="anio" class="fw-bold me-2">Seleccionar año:</label>
+            <select name="anio" id="anio" 
+                    class="form-select d-inline-block w-auto" onchange="this.form.submit()">
+                {% for a in años_disponibles %}
+                    <option value="{{ a }}" {% if a == año_actual %}selected{% endif %}>{{ a }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+</div>
+
+    <!-- 🔍 ANÁLISIS DE VOLUMEN -->
+    <div class="card shadow-lg border-0 mb-4 bg-white">
+        <div class="card-body">
+            <div class="row text-center">
+                <!-- Mes con Mayor Volumen -->
+                <div class="col-md-6 mb-3">
+                    <div class="card border-success shadow-lg h-100 bg-success-subtle">
+                        <div class="card-body">
+                            <h5 class="text-success fw-bold">📈 Mes con Mayor Volumen</h5>
+                            <p class="mb-1"><strong>Mes:</strong> {{ mes_mayor }}</p>
+                            <p class="mb-1"><strong>Departamento con mayor aporte:</strong> {{ dept_mayor }}</p>
+                            <p><strong>Volumen:</strong> {{ "{:,.0f}".format(vol_mayor) }} L</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mes con Menor Volumen -->
+                <div class="col-md-6 mb-3">
+                    <div class="card border-danger shadow-lg h-100 bg-danger-subtle">
+                        <div class="card-body">
+                            <h5 class="text-danger fw-bold">📉 Mes con Menor Volumen</h5>
+                            <p class="mb-1"><strong>Mes:</strong> {{ mes_menor }}</p>
+                            <p class="mb-1"><strong>Departamento con menor aporte:</strong> {{ dept_menor }}</p>
+                            <p><strong>Volumen:</strong> {{ "{:,.0f}".format(vol_menor) }} L</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📅 GRÁFICO NACIONAL -->
+    <div class="card shadow-lg border-primary bg-light  mb-4">
+        <div class="card-body text-center">
+            <h4 class="text-primary mb-3">📅 Volumen Nacional - {{ año_actual }}</h4>
+            <img src="data:image/png;base64,{{ grafico }}" class="img-fluid rounded shadow mt-3" alt="Gráfico de Volumen Nacional">
+        </div>
+    </div>
+
+   <!-- 🤖 PREDICCIÓN FUTURA -->
+<div class="card shadow-lg border-0 mb-4 bg-gradient-prediccion rounded-4">
+  <div class="card-body">
+    <h4 class="text-center fw-bold text-dark mb-4">
+      🤖 Predicción para los próximos 6 meses
+    </h4>
+
+    <div class="row align-items-center">
+      
+      <!-- Imagen -->
+      <div class="col-md-5 text-center mb-3 mb-md-0">
+        <div class="p-2 bg-white rounded shadow-sm d-inline-block">
+          <img src="/static/images/cantina.png" 
+               alt="Predicción futura" 
+               class="img-fluid rounded">
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div class="col-md-7">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle table-bordered rounded-3 overflow-hidden">
+            <thead class="table-dark">
+              <tr>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Volumen Predicho (L)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in predicciones %}
+              <tr>
+                <td class="text-center fw-semibold">{{ p.MES }} {{ p.AÑO }}</td>
+                <td class="text-center text-primary fw-bold">
+                  {{ "{:,.0f}".format(p.PREDICCION|float) }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
